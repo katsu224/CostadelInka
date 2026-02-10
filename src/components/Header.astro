@@ -1,0 +1,105 @@
+---
+const links = [
+  { text: "Inicio", href: "/" },
+  { text: "Nosotros", href: "/about" },
+  { text: "Habitaciones", href: "/room" },
+  { text: "Servicios", href: "/service" },
+  { text: "Testimonios", href: "/#testimonials" }, // Anchor link or page? Provided URL structure has no testimonials page, mostly sections. Let's assume section on home regarding requested structure, but there is "gallery.html". Let's stick to main nav.
+  { text: "Contactanos", href: "/contact", isButton: true },
+];
+
+// Additional links from user request:
+// - Inicio (index)
+// - Conócenos (about)
+// - Servicios (service)
+// - Habitaciones (room)
+// - Sala de Eventos (evento) - maybe in submenu? or main?
+// - Cochera (cochera)
+// - Restaurante (restaurant)
+// - Terrazas (terraza)
+// - Galería (gallery)
+// - Contacto (contact)
+
+// 11 links is too many for header. Grouping?
+// For now, let's put key ones.
+const menuItems = [
+  { text: "Inicio", href: "/" },
+  { text: "Nosotros", href: "/about" },
+  { text: "Habitaciones", href: "/room" },
+  { text: "Servicios", href: "/service" },
+  { text: "Instalaciones", href: "/gallery" }, // Group restaurant/terraza/evento here or separate?
+  { text: "Contacto", href: "/contact" },
+];
+---
+
+<header class="fixed w-full top-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-white/10">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/" class="flex items-center gap-2">
+      <!-- Logo placeholder or text -->
+      <div class="flex flex-col">
+        <span class="font-heading text-2xl font-bold text-primary-500 tracking-wider">COSTA</span>
+        <span class="font-heading text-xl text-white tracking-widest -mt-2">DEL INKA</span>
+      </div>
+    </a>
+
+    <!-- Desktop Menu -->
+    <nav class="hidden md:flex items-center gap-8">
+      {
+        menuItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-sm font-medium text-white/80 hover:text-primary-400 transition-colors uppercase tracking-wide"
+          >
+            {item.text}
+          </a>
+        ))
+      }
+      <a 
+        href="/contact" 
+        class="px-6 py-2 bg-primary-600 text-white font-medium rounded-sm hover:bg-primary-700 transition-all uppercase text-sm tracking-wide"
+      >
+        Reservar
+      </a>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button id="menu-toggle" class="md:hidden text-white hover:text-primary-400 transition-colors" aria-label="Toggle menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 bg-dark-900 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8">
+    <button id="menu-close" class="absolute top-6 right-6 text-white hover:text-primary-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    {
+      menuItems.map((item) => (
+        <a
+          href={item.href}
+          class="text-2xl font-heading text-white hover:text-primary-500 transition-colors"
+        >
+          {item.text}
+        </a>
+      ))
+    }
+  </div>
+</header>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuClose = document.getElementById('menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function toggleMenu() {
+    mobileMenu?.classList.toggle('translate-x-full');
+    document.body.classList.toggle('overflow-hidden');
+  }
+
+  menuToggle?.addEventListener('click', toggleMenu);
+  menuClose?.addEventListener('click', toggleMenu);
+</script>

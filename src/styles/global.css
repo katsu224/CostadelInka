@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-primary-50: #fbf8f1;
+  --color-primary-100: #f5edd9;
+  --color-primary-200: #ebdcb0;
+  --color-primary-300: #dec383;
+  --color-primary-400: #cea65a;
+  --color-primary-500: #c5a572; /* Brand Gold */
+  --color-primary-600: #a47e3a;
+  --color-primary-700: #886230;
+  --color-primary-800: #71502d;
+  --color-primary-900: #5e432a;
+  --color-primary-950: #352313;
+
+  --color-dark-50: #f6f6f6;
+  --color-dark-100: #e7e7e7;
+  --color-dark-200: #d1d1d1;
+  --color-dark-300: #b0b0b0;
+  --color-dark-400: #888888;
+  --color-dark-500: #6d6d6d;
+  --color-dark-600: #5d5d5d;
+  --color-dark-700: #4f4f4f;
+  --color-dark-800: #454545;
+  --color-dark-900: #1a1a1a;
+  --color-dark-950: #0f0f0f;
+
+  /* Typography */
+  --font-family-heading: "Playfair Display", serif;
+  --font-family-body: "Inter", sans-serif;
+
+  /* Fluid Type Scale */
+  --text-step--2: clamp(0.69rem, 0.65rem + 0.2vw, 0.75rem);
+  --text-step--1: clamp(0.8rem, 0.75rem + 0.3vw, 0.875rem);
+  --text-step-0: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-step-1: clamp(1.125rem, 1rem + 0.6vw, 1.25rem);
+  --text-step-2: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --text-step-3: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+  --text-step-4: clamp(1.875rem, 1.4rem + 2.4vw, 2.5rem);
+  --text-step-5: clamp(2.25rem, 1.6rem + 3.2vw, 3.5rem);
+}
+
+@utility font-heading {
+  font-family: var(--font-family-heading);
+}
+
+@utility font-body {
+  font-family: var(--font-family-body);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-dark-900);
+  color: var(--color-dark-50);
+  font-family: var(--font-family-body);
+}

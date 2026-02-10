@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import Button from './ui/Button.astro';
+
+// Placeholder image since we don't have the actual assets yet.
+// In a real scenario, we would use src/assets/hero.jpg
+const heroImage = "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop"; 
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src={heroImage} 
+      alt="Hotel Costa del Inka Luxury Room" 
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/50 to-dark-900/30"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 container mx-auto px-6 text-center">
+    <div class="mb-6 animate-fade-in-up">
+      <span class="inline-block py-1 px-3 border border-primary-500/50 rounded-full bg-dark-900/50 backdrop-blur-sm text-primary-400 text-sm tracking-[0.2em] uppercase mb-4">
+        Nuevo Chimbote, Perú
+      </span>
+      <h1 class="font-heading text-4xl md:text-6xl lg:text-7xl text-white font-bold leading-tight mb-6">
+        <span class="block text-primary-500">HOTEL</span>
+        COSTA DEL INKA
+      </h1>
+      <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+        El mejor hotel en la ciudad de Chimbote. Una experiencia única con servicio personalizado en un ambiente cómodo y atractivo.
+      </p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-4 justify-center items-center animate-fade-in-up delay-200">
+      <Button href="/room" size="lg">
+        Ver Habitaciones
+      </Button>
+      <Button href="/contact" variant="outline" size="lg">
+        Contáctanos
+      </Button>
+    </div>
+  </div>
+
+  <!-- Scroll Down Indicator -->
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <a href="#welcome" class="text-white/50 hover:text-white transition-colors p-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </a>
+  </div>
+</section>

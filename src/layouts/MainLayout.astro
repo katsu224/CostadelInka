@@ -1,0 +1,41 @@
+---
+import '@fontsource/playfair-display';
+import '@fontsource/inter';
+import '../styles/global.css';
+
+import SEOHead from '../components/SEOHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const { 
+  title, 
+  description = "Hotel Costa del Inka - Experiencia única y servicio personalizado en Nuevo Chimbote. Habitaciones modernas, restaurante, sala de eventos y más.",
+  image,
+  type
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <SEOHead title={title} description={description} image={image} type={type} />
+  </head>
+  <body class="bg-dark-900 text-dark-50 antialiased selection:bg-primary-500/30 selection:text-white flex flex-col min-h-screen">
+    <Header />
+    <main class="flex-grow pt-20"> <!-- pt-20 to account for fixed header -->
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

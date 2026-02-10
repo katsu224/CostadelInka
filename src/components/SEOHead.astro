@@ -1,0 +1,49 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonicalURL?: string | URL;
+  type?: 'website' | 'article';
+}
+
+const {
+  title,
+  description,
+  image,
+  canonicalURL = Astro.url,
+  type = 'website',
+} = Astro.props;
+
+const siteName = 'Hotel Costa del Inka';
+const siteURL = Astro.site?.toString() || 'https://costadelinkahotel.com';
+const resolvedImage = image
+  ? new URL(image, siteURL).toString()
+  : new URL('/og-default.jpg', siteURL).toString();
+const resolvedCanonical = new URL(canonicalURL, siteURL).toString();
+
+const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+---
+
+<!-- Primary Meta Tags -->
+<title>{fullTitle}</title>
+<meta name="title" content={fullTitle} />
+<meta name="description" content={description} />
+<link rel="canonical" href={resolvedCanonical} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={resolvedCanonical} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={resolvedImage} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={resolvedCanonical} />
+<meta property="twitter:title" content={fullTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={resolvedImage} />
+
+<!-- Fonts -->
+<!-- Handled by @fontsource imports in MainLayout -->
