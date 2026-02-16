@@ -1,0 +1,84 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/ui/Section.astro';
+import Button from '../components/ui/Button.astro';
+
+const events = [
+  {
+    title: "Conferencias",
+    desc: "Equipamiento audiovisual de última generación.",
+    icon: "🎤"
+  },
+  {
+    title: "Matrimonios",
+    desc: "Elegancia y servicio integral para su día especial.",
+    icon: "💍"
+  },
+  {
+    title: "Capacitaciones",
+    desc: "Ambientes propicios para el aprendizaje y networking.",
+    icon: "📈"
+  }
+];
+---
+
+<MainLayout 
+  title="Sala de Eventos" 
+  description="Detalles sobre las instalaciones para eventos, conferencias y celebraciones en Hotel Costa del Inka."
+>
+  <PageHeader 
+    title="Eventos y Conferencias" 
+    subtitle="El escenario perfecto para sus momentos importantes"
+    backgroundImage="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop"
+  />
+
+  <Section>
+    <div class="max-w-4xl mx-auto text-center mb-16">
+      <h2 class="font-heading text-3xl text-white font-bold mb-6">Instalaciones Versátiles</h2>
+      <p class="text-white/80 leading-relaxed text-lg">
+        Contamos con salones adaptables para todo tipo de eventos. Desde reuniones corporativas hasta grandes celebraciones sociales, nuestro equipo se encarga de cada detalle para asegurar el éxito de su evento.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      {events.map(item => (
+        <div class="bg-dark-800 p-8 rounded-sm border border-white/5 text-center hover:bg-dark-700 transition-colors">
+          <div class="text-4xl mb-4">{item.icon}</div>
+          <h3 class="font-heading text-xl text-white font-bold mb-2">{item.title}</h3>
+          <p class="text-white/60 text-sm">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="bg-dark-800 p-8 md:p-12 rounded-sm border border-white/5 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h3 class="font-heading text-2xl text-primary-500 font-bold mb-4">Servicios Incluidos</h3>
+        <ul class="space-y-4 text-white/70">
+          <li class="flex items-center gap-3">
+            <span class="text-primary-500">✓</span> Proyector Multimedia y Ecran
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-primary-500">✓</span> Sistema de Sonido Profesional
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-primary-500">✓</span> Coffee Break y Catering
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-primary-500">✓</span> Aire Acondicionado
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-primary-500">✓</span> Mobiliario y Decoración
+          </li>
+        </ul>
+        <div class="mt-8">
+          <Button href="/contact">Cotizar Evento</Button>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2012&auto=format&fit=crop" class="rounded-sm w-full h-40 object-cover" alt="Conferencia" />
+        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop" class="rounded-sm w-full h-40 object-cover translate-y-4" alt="Boda" />
+      </div>
+    </div>
+  </Section>
+</MainLayout>

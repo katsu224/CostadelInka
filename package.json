@@ -9,8 +9,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.6.4",
-    "@astrojs/node": "^9.5.3",
     "@astrojs/vercel": "^9.0.4",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/playfair-display": "^5.2.8",
@@ -20,6 +18,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "@types/node": "^25.2.2"
+    "@types/node": "^25.2.2",
+    "vite": "^6.0.0"
   }
 }
