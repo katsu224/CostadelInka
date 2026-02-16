@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel(), // Añade el adaptador aquí
   vite: {
     plugins: [tailwindcss()]
   },
