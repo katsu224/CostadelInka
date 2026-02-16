@@ -4,12 +4,23 @@ import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/ui/Section.astro';
 import Button from '../components/ui/Button.astro';
 
-// 1. Detectamos si la URL del navegador tiene "?preview=true"
-const isPreview = Astro.url.searchParams.get('preview') === 'true';
+export const prerender = false;
 
-// 2. MAGIA ANTI-CACHÉ: Le pasamos un Date.now() a tu API de Next.js
-// para obligar a la API a consultar la Base de Datos fresca
-const API_URL = `http://localhost:3000/api/v1/delivery/websites/5d86b344-037c-41b2-a616-8e271325b98c/pages/room${isPreview ? `?preview=true&nocache=${Date.now()}` : ''}`;
+// 1. Detectamos si la URL del navegador tiene "?token=..."
+const previewToken = Astro.url.searchParams.get('token');
+const isPreview = previewToken === import.meta.env.PREVIEW_SECRET;
+
+// 2. MAGIA ANTI-CACHÉ Y SEGURIDAD
+const API_BASE = import.meta.env.API_URL;
+const API_URL = `${API_BASE}/api/v1/delivery/websites/5d86b344-037c-41b2-a616-8e271325b98c/pages/room${isPreview ? `?preview=true&nocache=${Date.now()}` : ''}`;
+
+// 3. 🚨 AQUI ESTÁ EL CAMBIO: Preparamos los Headers con el Token VIP 🚨
+const fetchHeaders: HeadersInit = isPreview 
+  ? { 
+      'Cache-Control': 'no-cache',
+      'Authorization': `Bearer ${import.meta.env.PREVIEW_SECRET}` // <-- Arquitectura Limpia
+    } 
+  : {};
 
 let rooms = [];
 let headerData = {
@@ -20,10 +31,12 @@ let headerData = {
 let error = null;
 
 try {
- const res = await fetch(API_URL, {
-      cache: 'no-store',
-      headers: { 'Cache-Control': 'no-cache' }
+  // 4. Hacemos el fetch enviando los headers seguros
+  const res = await fetch(API_URL, {
+      cache: isPreview ? 'no-store' : 'force-cache', // Si es preview no guarda caché
+      headers: fetchHeaders
   });
+
   if (!res.ok) {
     throw new Error(`API Error: ${res.status}`);
   }
@@ -141,8 +154,8 @@ try {
               )}
 
               <div class="mt-auto">
-                {/* Ojo: Añado el parámetro preview al botón también para que la siguiente página siga en modo prueba */}
-                <Button href={`/rooms/${room.id}${isPreview ? '?preview=true' : ''}`} size="lg">
+                {/* Mantenemos el token para que la navegación siga en modo preview */}
+                <Button href={`/rooms/${room.id}${isPreview ? `?token=${previewToken}` : ''}`} size="lg">
                   Reservar Ahora
                 </Button>
               </div>
