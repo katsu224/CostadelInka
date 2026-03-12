@@ -3,7 +3,6 @@ import "@fontsource/playfair-display";
 import "@fontsource/inter";
 import "../styles/global.css";
 
-import { ViewTransitions } from "astro:transitions";
 import SEOHead from "../components/SEOHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -55,15 +54,11 @@ const themeClass = activeTheme !== "default" ? `theme-${activeTheme}` : "";
       schema={schema}
       breadcrumbs={breadcrumbs}
     />
-    <ViewTransitions />
     <!-- Aplicar dark-mode ANTES del primer paint para evitar flash -->
     <script is:inline>
       (function () {
         var saved = localStorage.getItem("hotel-theme-mode");
-        var prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        if (saved === "dark" || (!saved && prefersDark)) {
+        if (saved === "dark") {
           document.documentElement.classList.add("is-dark");
         }
       })();

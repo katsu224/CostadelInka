@@ -244,24 +244,3 @@ html.theme-ready form {
   animation: logo-entrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ========================================
-   VIEW TRANSITIONS CUSTOMIZATION
-   ======================================== */
-
-::view-transition-old(root) {
-  animation: 0.3s ease-out both fade-out;
-}
-
-::view-transition-new(root) {
-  animation: 0.3s ease-in both fade-in;
-}
-
-@keyframes fade-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}

@@ -4,15 +4,17 @@ const menuItems = [
   { text: "Nosotros", href: "/about" },
   { text: "Habitaciones", href: "/room" },
   { text: "Servicios", href: "/service" },
-  { text: "Instalaciones", href: "/gallery" },
+  { text: "Galería", href: "/gallery" },
   { text: "Contacto", href: "/contact" },
 ];
 ---
 
 <header
-  class="fixed w-full top-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-white/10"
+  id="main-header"
+  class="fixed w-full top-0 z-50 backdrop-blur-md border-b border-white/10 transition-all duration-300"
+  style="background:rgba(26,26,26,0.8);"
 >
-  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+  <div class="container mx-auto px-6 flex justify-between items-center transition-all duration-300" id="header-inner" style="padding-top:1rem;padding-bottom:1rem;">
     <a href="/" class="flex items-center gap-2 logo-animate">
       <div class="flex flex-col">
         <span
@@ -68,13 +70,18 @@ const menuItems = [
     </nav>
 
     <!-- Mobile Menu Button -->
-    <div class="md:hidden flex items-center gap-4">
+    <div class="md:hidden flex items-center gap-3">
       <button
         id="theme-toggle-mobile-btn"
-        class="text-white/80 hover:text-primary-400 transition-colors"
+        class="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 border border-white/20 hover:border-primary-500/50 hover:bg-white/20 transition-all"
         aria-label="Cambiar modo claro/oscuro"
       >
-        <span id="mobile-toggle-icon-header" class="text-lg">☀️</span>
+        <svg id="mobile-icon-sun" class="w-4.5 h-4.5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+        </svg>
+        <svg id="mobile-icon-moon" class="w-4.5 h-4.5 text-primary-400 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+        </svg>
       </button>
       <button
         id="menu-toggle"
@@ -137,6 +144,27 @@ const menuItems = [
 
 <script is:inline>
   (function () {
+    // === Header shrink on scroll ===
+    var headerInner = document.getElementById('header-inner');
+    var header = document.getElementById('main-header');
+    var scrolled = false;
+
+    function onScroll() {
+      var isScrolled = window.scrollY > 60;
+      if (isScrolled === scrolled) return;
+      scrolled = isScrolled;
+      if (isScrolled) {
+        headerInner.style.paddingTop = '0.4rem';
+        headerInner.style.paddingBottom = '0.4rem';
+        header.style.background = 'rgba(26,26,26,0.95)';
+      } else {
+        headerInner.style.paddingTop = '1rem';
+        headerInner.style.paddingBottom = '1rem';
+        header.style.background = 'rgba(26,26,26,0.8)';
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     // === Dark mode toggle ===
     function isDarkActive() {
       return document.documentElement.classList.contains("is-dark");
@@ -144,36 +172,30 @@ const menuItems = [
 
     function setDarkMode(isDark) {
       document.documentElement.classList.toggle("is-dark", isDark);
-
-      // Habilitar transiciones suaves después del primer toggle
       document.documentElement.classList.add("theme-ready");
-
-      // Guardar preferencia global
       localStorage.setItem("hotel-theme-mode", isDark ? "dark" : "light");
-
-      // Actualizar UI del toggle
       updateToggleUI(isDark);
     }
 
     function updateToggleUI(isDark) {
       var indicator = document.getElementById("toggle-indicator");
-      var mobileIcon = document.getElementById("mobile-toggle-icon-header");
+      var sunIcon = document.getElementById("mobile-icon-sun");
+      var moonIcon = document.getElementById("mobile-icon-moon");
 
       if (indicator) {
         indicator.style.transform = isDark
           ? "translateX(1.75rem)"
           : "translateX(0)";
       }
-      if (mobileIcon) {
-        mobileIcon.textContent = isDark ? "🌙" : "☀️";
+      if (sunIcon && moonIcon) {
+        sunIcon.classList.toggle("hidden", isDark);
+        moonIcon.classList.toggle("hidden", !isDark);
       }
     }
 
-    // Sincronizar UI del toggle con el estado actual
     var isDark = isDarkActive();
     updateToggleUI(isDark);
 
-    // Event listeners
     var toggle = document.getElementById("theme-toggle");
     var toggleMobile = document.getElementById("theme-toggle-mobile-btn");
 
@@ -189,12 +211,12 @@ const menuItems = [
     var menuClose = document.getElementById("menu-close");
     var mobileMenu = document.getElementById("mobile-menu");
 
-    function toggleMenu() {
+    function toggleMenuFn() {
       if (mobileMenu) mobileMenu.classList.toggle("translate-x-full");
       document.body.classList.toggle("overflow-hidden");
     }
 
-    if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
-    if (menuClose) menuClose.addEventListener("click", toggleMenu);
+    if (menuToggle) menuToggle.addEventListener("click", toggleMenuFn);
+    if (menuClose) menuClose.addEventListener("click", toggleMenuFn);
   })();
 </script>
