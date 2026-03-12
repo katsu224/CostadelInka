@@ -1,0 +1,111 @@
+---
+import type { Theme } from '../layouts/MainLayout.astro';
+
+interface Props {
+  theme: Theme;
+}
+
+const { theme } = Astro.props;
+
+const isChristmas = theme === 'christmas';
+const isValentine = theme === 'valentine';
+const showEffect = isChristmas || isValentine;
+---
+
+{showEffect && (
+  <div class="seasonal-effects" aria-hidden="true">
+    {isChristmas && (
+      <div class="snowflakes">
+        {Array.from({ length: 20 }).map((_, i) => (
+          <span class="snowflake" style={`--i: ${i}; --x: ${Math.random() * 100}; --delay: ${Math.random() * 10}; --duration: ${5 + Math.random() * 10}; --size: ${0.6 + Math.random() * 0.8}`}>
+            &#10052;
+          </span>
+        ))}
+      </div>
+    )}
+    {isValentine && (
+      <div class="hearts">
+        {Array.from({ length: 15 }).map((_, i) => (
+          <span class="heart" style={`--i: ${i}; --x: ${Math.random() * 100}; --delay: ${Math.random() * 10}; --duration: ${6 + Math.random() * 10}; --size: ${0.5 + Math.random() * 0.7}`}>
+            &#9829;
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+)}
+
+<style is:global>
+  .seasonal-effects {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  /* === Copos de nieve (Navidad) === */
+  .snowflake {
+    position: absolute;
+    top: -5%;
+    left: calc(var(--x) * 1%);
+    font-size: calc(var(--size) * 1.2rem);
+    color: rgba(255, 255, 255, 0.7);
+    animation: snowfall var(--duration-val) linear var(--delay-val) infinite;
+    --duration-val: calc(var(--duration) * 1s);
+    --delay-val: calc(var(--delay) * -1s);
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+  }
+
+  @keyframes snowfall {
+    0% {
+      transform: translateY(0) rotate(0deg) translateX(0);
+      opacity: 1;
+    }
+    25% {
+      transform: translateY(25vh) rotate(90deg) translateX(15px);
+    }
+    50% {
+      transform: translateY(50vh) rotate(180deg) translateX(-15px);
+    }
+    75% {
+      transform: translateY(75vh) rotate(270deg) translateX(10px);
+    }
+    100% {
+      transform: translateY(105vh) rotate(360deg) translateX(0);
+      opacity: 0.3;
+    }
+  }
+
+  /* === Corazones (San Valentín) === */
+  .heart {
+    position: absolute;
+    bottom: -5%;
+    left: calc(var(--x) * 1%);
+    font-size: calc(var(--size) * 1.2rem);
+    color: rgba(233, 30, 120, 0.6);
+    animation: float-heart var(--duration-val) ease-in var(--delay-val) infinite;
+    --duration-val: calc(var(--duration) * 1s);
+    --delay-val: calc(var(--delay) * -1s);
+  }
+
+  @keyframes float-heart {
+    0% {
+      transform: translateY(0) scale(1) rotate(0deg);
+      opacity: 0.8;
+    }
+    25% {
+      transform: translateY(-25vh) scale(1.1) rotate(-10deg) translateX(20px);
+    }
+    50% {
+      transform: translateY(-50vh) scale(0.9) rotate(10deg) translateX(-20px);
+    }
+    75% {
+      transform: translateY(-75vh) scale(1.05) rotate(-5deg) translateX(10px);
+    }
+    100% {
+      transform: translateY(-105vh) scale(0.8) rotate(0deg);
+      opacity: 0;
+    }
+  }
+</style>

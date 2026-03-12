@@ -1,0 +1,807 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Section from "../../components/ui/Section.astro";
+import Button from "../../components/ui/Button.astro";
+import {
+  rooms,
+  getRoomById,
+  getOtherRooms,
+  getWhatsAppLink,
+  BOOKING_URL,
+} from "../../data/rooms-data";
+import type { Room } from "../../data/rooms-data";
+
+export function getStaticPaths() {
+  return rooms.map((room) => ({
+    params: { id: room.id },
+  }));
+}
+
+const { id } = Astro.params;
+const room = getRoomById(id!) as Room;
+const otherRooms = getOtherRooms(id!);
+const whatsappLink = getWhatsAppLink(room.title);
+
+const roomSchema = {
+  "@context": "https://schema.org",
+  "@type": "HotelRoom",
+  name: room.title,
+  description: room.description,
+  occupancy: {
+    "@type": "QuantitativeValue",
+    maxValue: room.maxGuests,
+  },
+  bed: {
+    "@type": "BedDetails",
+    numberOfBeds: room.maxGuests,
+    typeOfBed: room.beds,
+  },
+  amenityFeature: [
+    {
+      "@type": "LocationFeatureSpecification",
+      name: "WiFi gratuito",
+      value: true,
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      name: "TV por cable",
+      value: true,
+    },
+    ...(room.hasMinibar
+      ? [
+          {
+            "@type": "LocationFeatureSpecification",
+            name: "Frigobar",
+            value: true,
+          },
+        ]
+      : []),
+    ...(room.hasCityView
+      ? [
+          {
+            "@type": "LocationFeatureSpecification",
+            name: "Vistas a la ciudad",
+            value: true,
+          },
+        ]
+      : []),
+    ...(room.hasAC
+      ? [
+          {
+            "@type": "LocationFeatureSpecification",
+            name: "Aire acondicionado",
+            value: true,
+          },
+        ]
+      : []),
+  ],
+  containedInPlace: {
+    "@type": "Hotel",
+    name: "Hotel Costa del Inka",
+    url: "https://costadelinkahotel.com",
+  },
+};
+
+const faqSchema =
+  room.faqs && room.faqs.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: room.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      }
+    : null;
+
+const schemas = [roomSchema, ...(faqSchema ? [faqSchema] : [])];
+
+const breadcrumbs = [
+  { name: "Inicio", url: "/" },
+  { name: "Habitaciones", url: "/room" },
+  { name: room.title },
+];
+
+const seoTitle = `${room.title} Chimbote | Hotel Costa del Inka`;
+const seoDescription = `${room.title} en Nuevo Chimbote con ${room.beds}, WiFi gratis y TV por cable. ${room.hasCityView ? "Vistas a la ciudad. " : ""}Ideal para ${room.maxGuests === 1 ? "viajeros solos" : room.maxGuests === 2 ? "parejas" : "familias"}. Reserva directo o por WhatsApp.`;
+---
+
+<MainLayout
+  title={seoTitle}
+  description={seoDescription}
+  schema={schemas}
+  breadcrumbs={breadcrumbs}
+>
+  <PageHeader
+    title={room.title}
+    subtitle={`${room.size} · ${room.beds}`}
+    imageSrc="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1920&q=80"
+  />
+
+  <Breadcrumbs
+    items={[
+      { name: "Inicio", url: "/" },
+      { name: "Habitaciones", url: "/room" },
+      { name: room.title },
+    ]}
+  />
+
+  <!-- ===== GALERÍA DE FOTOS ===== -->
+  <Section>
+    <div class="mb-4">
+      <h2 class="font-heading text-2xl md:text-3xl text-heading font-bold mb-2">
+        Galería
+      </h2>
+      <div class="w-16 h-1 bg-primary-500"></div>
+    </div>
+
+    <!-- Imagen principal con Marco Premium -->
+    <div
+      class="relative p-2 md:p-3 bg-dark-900 border border-border shadow-2xl mb-4 group ring-1 ring-primary-500/10"
+    >
+      <!-- Esquinas Doradas Lujosas -->
+      <!-- Esquina Superior Izquierda -->
+      <div
+        class="absolute top-0 left-0 w-0 h-0 border-t-[30px] border-r-[30px] md:border-t-[40px] md:border-r-[40px] border-t-primary-500 border-r-transparent pointer-events-none z-10 drop-shadow-md"
+      >
+      </div>
+      <div
+        class="absolute top-1 left-1 w-0 h-0 border-t-[22px] border-r-[22px] md:border-t-[32px] md:border-r-[32px] border-t-dark-900 border-r-transparent pointer-events-none z-10"
+      >
+      </div>
+      <div
+        class="absolute top-2 left-2 w-0 h-0 border-t-[14px] border-r-[14px] md:border-t-[24px] md:border-r-[24px] border-t-primary-500 border-r-transparent pointer-events-none z-10"
+      >
+      </div>
+
+      <!-- Esquina Superior Derecha -->
+      <div
+        class="absolute top-0 right-0 w-0 h-0 border-t-[30px] border-l-[30px] md:border-t-[40px] md:border-l-[40px] border-t-primary-500 border-l-transparent pointer-events-none z-10 drop-shadow-md"
+      >
+      </div>
+      <div
+        class="absolute top-1 right-1 w-0 h-0 border-t-[22px] border-l-[22px] md:border-t-[32px] md:border-l-[32px] border-t-dark-900 border-l-transparent pointer-events-none z-10"
+      >
+      </div>
+      <div
+        class="absolute top-2 right-2 w-0 h-0 border-t-[14px] border-l-[14px] md:border-t-[24px] md:border-l-[24px] border-t-primary-500 border-l-transparent pointer-events-none z-10"
+      >
+      </div>
+
+      <!-- Esquina Inferior Izquierda -->
+      <div
+        class="absolute bottom-0 left-0 w-0 h-0 border-b-[30px] border-r-[30px] md:border-b-[40px] md:border-r-[40px] border-b-primary-500 border-r-transparent pointer-events-none z-10 drop-shadow-md"
+      >
+      </div>
+      <div
+        class="absolute bottom-1 left-1 w-0 h-0 border-b-[22px] border-r-[22px] md:border-b-[32px] md:border-r-[32px] border-b-dark-900 border-r-transparent pointer-events-none z-10"
+      >
+      </div>
+      <div
+        class="absolute bottom-2 left-2 w-0 h-0 border-b-[14px] border-r-[14px] md:border-b-[24px] md:border-r-[24px] border-b-primary-500 border-r-transparent pointer-events-none z-10"
+      >
+      </div>
+
+      <!-- Esquina Inferior Derecha -->
+      <div
+        class="absolute bottom-0 right-0 w-0 h-0 border-b-[30px] border-l-[30px] md:border-b-[40px] md:border-l-[40px] border-b-primary-500 border-l-transparent pointer-events-none z-10 drop-shadow-md"
+      >
+      </div>
+      <div
+        class="absolute bottom-1 right-1 w-0 h-0 border-b-[22px] border-l-[22px] md:border-b-[32px] md:border-l-[32px] border-b-dark-900 border-l-transparent pointer-events-none z-10"
+      >
+      </div>
+      <div
+        class="absolute bottom-2 right-2 w-0 h-0 border-b-[14px] border-l-[14px] md:border-b-[24px] md:border-l-[24px] border-b-primary-500 border-l-transparent pointer-events-none z-10"
+      >
+      </div>
+
+      <div
+        id="gallery-main"
+        class="relative w-full h-[300px] md:h-[500px] overflow-hidden cursor-pointer border border-primary-500/40"
+      >
+        <img
+          id="gallery-main-img"
+          src={room.gallery[0]}
+          alt={`${room.title} - Foto principal`}
+          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        >
+        </div>
+        <div
+          class="absolute bottom-4 right-4 bg-black/80 border border-primary-500/50 text-white px-4 py-2 text-xs font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg backdrop-blur-md"
+        >
+          Click para ampliar
+        </div>
+      </div>
+    </div>
+
+    <!-- Thumbnails -->
+    <div class="grid grid-cols-3 md:grid-cols-5 gap-2 md:gap-3">
+      {
+        room.gallery.map((img, i) => (
+          <div class="p-1 bg-dark-900 border border-border shadow-md">
+            <button
+              class:list={[
+                "gallery-thumb relative w-full h-[70px] md:h-[90px] overflow-hidden cursor-pointer group transition-all duration-300 border",
+                i === 0
+                  ? "border-primary-500 shadow-[0_0_10px_rgba(197,165,114,0.3)] opacity-100"
+                  : "border-primary-500/20 opacity-70 hover:opacity-100 hover:border-primary-500/50",
+              ]}
+              data-src={img}
+              data-index={i}
+            >
+              <img
+                src={img}
+                alt={`${room.title} - Foto ${i + 1}`}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
+            </button>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div
+    id="lightbox"
+    class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Galería de fotos"
+  >
+    <button
+      id="lightbox-close"
+      class="absolute top-6 right-6 text-white/80 hover:text-white text-4xl z-10 cursor-pointer transition-colors"
+      aria-label="Cerrar galería">&times;</button
+    >
+    <button
+      id="lightbox-prev"
+      class="absolute left-4 md:left-8 text-white/70 hover:text-white text-5xl z-10 cursor-pointer transition-colors"
+      aria-label="Foto anterior">&#8249;</button
+    >
+    <button
+      id="lightbox-next"
+      class="absolute right-4 md:right-8 text-white/70 hover:text-white text-5xl z-10 cursor-pointer transition-colors"
+      aria-label="Foto siguiente">&#8250;</button
+    >
+    <img
+      id="lightbox-img"
+      class="max-w-[90vw] max-h-[85vh] object-contain rounded-sm shadow-2xl"
+      alt=""
+    />
+    <div
+      id="lightbox-counter"
+      class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm font-medium tracking-wide"
+    >
+    </div>
+  </div>
+
+  <!-- ===== INFORMACIÓN DE LA HABITACIÓN ===== -->
+  <Section background="alt">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <!-- Columna principal -->
+      <div class="lg:col-span-2">
+        <h2
+          class="font-heading text-2xl md:text-3xl text-heading font-bold mb-2"
+        >
+          Sobre esta habitación
+        </h2>
+        <div class="w-16 h-1 bg-primary-500 mb-8"></div>
+
+        <p class="text-body text-lg leading-relaxed mb-8">
+          {room.description}
+        </p>
+
+        <!-- Highlights -->
+        <div class="flex flex-wrap gap-3 mb-10">
+          {
+            room.highlights.map((h) => (
+              <span class="inline-flex items-center gap-2 bg-surface-card border border-border rounded-sm px-4 py-2 text-sm text-heading font-medium shadow-sm">
+                <span class="text-primary-500">✦</span> {h}
+              </span>
+            ))
+          }
+        </div>
+
+        <!-- Servicios y Baño -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div
+            class="bg-surface-card border border-border rounded-sm p-6 shadow-sm"
+          >
+            <h3
+              class="font-heading text-lg text-heading font-bold mb-4 flex items-center gap-2"
+            >
+              <span class="text-primary-500 text-xl">🛁</span> Baño privado
+            </h3>
+            <ul class="space-y-3">
+              {
+                room.bathroomAmenities.map((item) => (
+                  <li class="flex items-center gap-3 text-muted text-sm">
+                    <span class="text-primary-500 font-bold">✓</span> {item}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div
+            class="bg-surface-card border border-border rounded-sm p-6 shadow-sm"
+          >
+            <h3
+              class="font-heading text-lg text-heading font-bold mb-4 flex items-center gap-2"
+            >
+              <span class="text-primary-500 text-xl">🏨</span> Servicios
+            </h3>
+            <ul class="space-y-3">
+              {
+                room.services.map((item) => (
+                  <li class="flex items-center gap-3 text-muted text-sm">
+                    <span class="text-primary-500 font-bold">✓</span> {item}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+
+        <!-- Política -->
+        <div
+          class="mt-8 flex items-center gap-3 text-muted text-sm bg-surface-card border border-border rounded-sm p-4"
+        >
+          <span class="text-lg">🚭</span>
+          <span
+            >Política de humo: <strong class="text-heading"
+              >no se puede fumar</strong
+            ></span
+          >
+        </div>
+
+        <!-- LO QUE NECESITAS SABER -->
+        <div
+          class="mt-12 bg-surface-card rounded-xl p-8 border border-border/50 shadow-sm relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 w-64 h-64 bg-primary-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"
+          >
+          </div>
+
+          <div class="relative z-10">
+            <h2 class="font-heading text-2xl text-heading font-bold mb-2">
+              Todo lo que necesitas saber antes de llegar
+            </h2>
+            <p class="text-muted text-sm mb-8">
+              La información clara es nuestra prioridad para que disfrutes sin
+              preocupaciones.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <!-- Desayuno -->
+              <div class="flex gap-4 items-start">
+                <div
+                  class="w-10 h-10 rounded-full bg-primary-500/10 flex items-center justify-center shrink-0"
+                >
+                  <span class="text-xl">☕</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-heading text-base mb-1">
+                    Sobre el Desayuno
+                  </h4>
+                  <p class="text-sm text-body leading-relaxed">
+                    {
+                      room.maxGuests > 2
+                        ? "El desayuno buffet está incluido para los adultos en habitaciones superiores. Para grupos con niños o habitaciones estándar, consulta antes por WhatsApp para evitar sorpresas."
+                        : "El desayuno buffet está incluido para los 2 adultos. Para grupos con niños, consulta antes de reservar por WhatsApp para evitar sorpresas al llegar."
+                    }
+                  </p>
+                </div>
+              </div>
+
+              <!-- Climatización -->
+              <div class="flex gap-4 items-start">
+                <div
+                  class="w-10 h-10 rounded-full bg-primary-500/10 flex items-center justify-center shrink-0"
+                >
+                  <span class="text-xl">{room.hasAC ? "❄️" : "🌬️"}</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-heading text-base mb-1">
+                    {room.hasAC ? "Aire Acondicionado" : "Ventilador"}
+                  </h4>
+                  <p class="text-sm text-body leading-relaxed">
+                    {
+                      room.hasAC
+                        ? "Las habitaciones superiores y suites cuentan con aire acondicionado garantizando tu confort en verano (diciembre-marzo)."
+                        : "Las habitaciones estándar incluyen ventilador. Si viajas en temporada de calor (diciembre-marzo), te recomendamos reservar una habitación superior."
+                    }
+                  </p>
+                </div>
+              </div>
+
+              <!-- IGV -->
+              <div class="flex gap-4 items-start">
+                <div
+                  class="w-10 h-10 rounded-full bg-primary-500/10 flex items-center justify-center shrink-0"
+                >
+                  <span class="text-xl">📄</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-heading text-base mb-1">
+                    Impuestos (IGV)
+                  </h4>
+                  <p class="text-sm text-body leading-relaxed">
+                    Los precios en nuestra web son precio final para turistas
+                    extranjeros con pasaporte vigente (exonerados de IGV por
+                    ley). Huéspedes nacionales pagan IGV adicional, informado
+                    siempre antes del check-in.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Moneda -->
+              <div class="flex gap-4 items-start">
+                <div
+                  class="w-10 h-10 rounded-full bg-primary-500/10 flex items-center justify-center shrink-0"
+                >
+                  <span class="text-xl">💵</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-heading text-base mb-1">
+                    Pagos en Dólares
+                  </h4>
+                  <p class="text-sm text-body leading-relaxed">
+                    Sí, aceptamos dólares y soles. El tipo de cambio del día se
+                    informa en recepción. Si prefieres pagar en dólares para
+                    evitar variaciones, con gusto lo procesamos.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Estacionamiento -->
+              <div class="flex gap-4 items-start md:col-span-2">
+                <div
+                  class="w-10 h-10 rounded-full bg-primary-500/10 flex items-center justify-center shrink-0"
+                >
+                  <span class="text-xl">🚗</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-heading text-base mb-1">
+                    Estacionamiento
+                  </h4>
+                  <p class="text-sm text-body leading-relaxed">
+                    Contamos con estacionamiento para huéspedes con
+                    disponibilidad limitada. Si viajas en vehículo, escríbenos
+                    antes para confirmar espacio disponible en tu fecha.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna lateral: CTAs -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-28">
+          <div
+            class="bg-surface-card border border-border rounded-sm p-4 text-center hover:border-primary-500/30 transition-colors"
+          >
+            <span class="block text-xl mb-2 text-primary-500">✨</span>
+            <span class="text-xs text-muted font-bold tracking-wider uppercase"
+              >Ambiente</span
+            >
+            <p class="font-bold text-heading mt-1">{room.size}</p>
+          </div>
+          <div
+            class="bg-surface-card border border-border rounded-sm p-8 shadow-lg"
+          >
+            <p
+              class="font-heading text-3xl text-primary-500 font-bold text-center mb-2"
+            >
+              Desde S/ {room.priceFrom}
+              <span class="text-muted text-sm font-normal">/ noche</span>
+            </p>
+            <h3
+              class="font-heading text-xl text-heading font-bold mb-2 text-center"
+            >
+              ¿Te interesa esta habitación?
+            </h3>
+            <p class="text-muted text-sm text-center mb-8">
+              Reserva directamente o consulta por disponibilidad
+            </p>
+
+            <div class="space-y-4">
+              <!-- Botón Booking -->
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-3 w-full bg-[#003580] hover:bg-[#00264d] text-white font-medium uppercase tracking-widest rounded-sm px-6 py-4 text-sm transition-all duration-300 hover:scale-[1.02] shadow-lg"
+              >
+                <svg
+                  class="w-5 h-5 flex-shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M2 7h5v10H2V7zm2 2v6h1V9H4zm7-2h5c1.7 0 3 1.3 3 3 0 1-.5 1.8-1.2 2.4.8.5 1.2 1.4 1.2 2.6 0 1.7-1.3 3-3 3h-5V7zm2 4h3c.6 0 1-.4 1-1s-.4-1-1-1h-3v2zm0 4h3c.6 0 1-.4 1-1s-.4-1-1-1h-3v2z"
+                  ></path>
+                </svg>
+                Reservar en Booking
+              </a>
+
+              <!-- Botón WhatsApp -->
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-3 w-full bg-[#25D366] hover:bg-[#1fb855] text-white font-medium uppercase tracking-widest rounded-sm px-6 py-4 text-sm transition-all duration-300 hover:scale-[1.02] shadow-lg"
+              >
+                <svg
+                  class="w-5 h-5 flex-shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M17.47 6.53a8.46 8.46 0 0 0-13.4 10.19L3 21l4.39-1.15a8.46 8.46 0 0 0 4.04 1.03h0A8.47 8.47 0 0 0 17.47 6.53zM11.43 19.3a7.02 7.02 0 0 1-3.58-.98l-.26-.15-2.66.7.71-2.6-.17-.26a7.03 7.03 0 0 1 11.01-8.47 7.02 7.02 0 0 1-5.05 11.76zm3.86-5.26c-.21-.11-1.26-.62-1.45-.69-.2-.07-.34-.11-.48.11s-.55.69-.68.83-.25.16-.46.05a5.78 5.78 0 0 1-2.85-2.49c-.22-.37.22-.34.62-1.14a.39.39 0 0 0-.02-.37c-.05-.11-.48-1.15-.65-1.58-.17-.41-.35-.36-.48-.36h-.41a.79.79 0 0 0-.57.27 2.4 2.4 0 0 0-.75 1.78 4.15 4.15 0 0 0 .87 2.21 9.53 9.53 0 0 0 3.66 3.24c1.35.58 1.88.63 2.56.53a2.19 2.19 0 0 0 1.44-1.01 1.78 1.78 0 0 0 .12-1.01c-.05-.09-.19-.14-.4-.25z"
+                  ></path>
+                </svg>
+                Consultar por WhatsApp
+              </a>
+            </div>
+
+            <p class="text-muted text-xs text-center mt-6">
+              Respuesta en menos de 1 hora
+            </p>
+          </div>
+
+          <!-- Info rápida -->
+          <div
+            class="mt-6 bg-surface-card border border-border rounded-sm p-6 shadow-sm"
+          >
+            <h4
+              class="font-heading text-sm text-heading font-bold uppercase tracking-widest mb-4"
+            >
+              Datos rápidos
+            </h4>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-center justify-between text-muted">
+                <span>Ambiente</span>
+                <span class="text-heading font-medium text-right"
+                  >{room.size}</span
+                >
+              </li>
+              <li class="flex items-center justify-between text-muted">
+                <span>Camas</span>
+                <span class="text-heading font-medium">{room.beds}</span>
+              </li>
+              <li class="flex items-center justify-between text-muted">
+                <span>Huéspedes</span>
+                <span class="text-heading font-medium"
+                  >Máx. {room.maxGuests}</span
+                >
+              </li>
+              {
+                room.hasAC && (
+                  <li class="flex items-center justify-between text-muted">
+                    <span>Climatización</span>
+                    <span class="text-heading font-medium">A/C ❄️</span>
+                  </li>
+                )
+              }
+              {
+                room.hasCityView && (
+                  <li class="flex items-center justify-between text-muted">
+                    <span>Vista</span>
+                    <span class="text-heading font-medium">Ciudad 🏙️</span>
+                  </li>
+                )
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FAQ ESPECÍFICAS DE LA HABITACIÓN -->
+    {
+      room.faqs && room.faqs.length > 0 && (
+        <div class="mt-12 bg-surface-card rounded-xl p-8 border border-border/50 shadow-sm">
+          <h2 class="font-heading text-2xl text-heading font-bold mb-6">
+            Preguntas frecuentes sobre esta habitación
+          </h2>
+          <div class="space-y-4">
+            {room.faqs.map((faq) => (
+              <details class="group bg-surface hover:bg-surface-hover transition-colors rounded-sm border border-border overflow-hidden">
+                <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-5 text-heading text-sm uppercase tracking-wide">
+                  <span>{faq.question}</span>
+                  <span class="transition-transform duration-300 group-open:-rotate-180 text-primary-500">
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="20"
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </span>
+                </summary>
+                <div class="text-body text-sm px-5 pb-5 leading-relaxed bg-surface border-t border-border/30 pt-4 m-1 mt-0">
+                  <p>{faq.answer}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </Section>
+
+  <!-- ===== OTRAS HABITACIONES ===== -->
+  <Section>
+    <div class="text-center mb-12">
+      <h2 class="font-heading text-2xl md:text-3xl text-heading font-bold mb-2">
+        Otras habitaciones que te pueden interesar
+      </h2>
+      <div class="w-16 h-1 bg-primary-500 mx-auto mt-4"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        otherRooms.slice(0, 3).map((other) => (
+          <a
+            href={`/rooms/${other.id}`}
+            class="group block bg-surface-card border border-border rounded-sm overflow-hidden shadow-sm hover:shadow-xl hover:border-border-hover transition-all duration-300 hover:-translate-y-1"
+          >
+            <div class="relative h-[220px] overflow-hidden">
+              <img
+                src={other.gallery[0]}
+                alt={other.title}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                <span class="text-white/80 text-xs font-medium tracking-wide">
+                  {other.size} · {other.beds}
+                </span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-heading text-lg text-heading font-bold mb-2 group-hover:text-primary-500 transition-colors">
+                {other.title}
+              </h3>
+              <p class="text-muted text-sm leading-relaxed line-clamp-2 mb-4">
+                {other.description}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {other.highlights.slice(0, 3).map((h) => (
+                  <span class="text-xs bg-surface-alt border border-border rounded-sm px-2 py-1 text-muted">
+                    {h}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="text-center mt-10">
+      <Button href="/room" variant="outline" size="lg">
+        Ver todas las habitaciones
+      </Button>
+    </div>
+  </Section>
+
+  <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+
+  <script is:inline>
+    // ===== GALLERY =====
+    const mainImg = document.getElementById("gallery-main-img");
+    const thumbs = document.querySelectorAll(".gallery-thumb");
+    const gallery = Array.from(thumbs).map((t) => t.dataset.src);
+    let currentIndex = 0;
+
+    function setActiveThumb(index) {
+      thumbs.forEach((t, i) => {
+        if (i === index) {
+          t.classList.add("border-primary-500", "shadow-md");
+          t.classList.remove("border-transparent");
+        } else {
+          t.classList.remove("border-primary-500", "shadow-md");
+          t.classList.add("border-transparent");
+        }
+      });
+    }
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        currentIndex = parseInt(thumb.dataset.index);
+        mainImg.src = thumb.dataset.src;
+        setActiveThumb(currentIndex);
+      });
+    });
+
+    // ===== LIGHTBOX =====
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxCounter = document.getElementById("lightbox-counter");
+
+    function openLightbox(index) {
+      currentIndex = index;
+      lightboxImg.src = gallery[index];
+      lightboxImg.alt = `Foto ${index + 1} de ${gallery.length}`;
+      lightboxCounter.textContent = `${index + 1} / ${gallery.length}`;
+      lightbox.classList.remove("hidden");
+      lightbox.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightbox.classList.add("hidden");
+      lightbox.classList.remove("flex");
+      document.body.style.overflow = "";
+    }
+
+    function nextPhoto() {
+      currentIndex = (currentIndex + 1) % gallery.length;
+      lightboxImg.src = gallery[currentIndex];
+      lightboxCounter.textContent = `${currentIndex + 1} / ${gallery.length}`;
+      mainImg.src = gallery[currentIndex];
+      setActiveThumb(currentIndex);
+    }
+
+    function prevPhoto() {
+      currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+      lightboxImg.src = gallery[currentIndex];
+      lightboxCounter.textContent = `${currentIndex + 1} / ${gallery.length}`;
+      mainImg.src = gallery[currentIndex];
+      setActiveThumb(currentIndex);
+    }
+
+    document
+      .getElementById("gallery-main")
+      .addEventListener("click", () => openLightbox(currentIndex));
+    document
+      .getElementById("lightbox-close")
+      .addEventListener("click", closeLightbox);
+    document
+      .getElementById("lightbox-prev")
+      .addEventListener("click", prevPhoto);
+    document
+      .getElementById("lightbox-next")
+      .addEventListener("click", nextPhoto);
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (lightbox.classList.contains("hidden")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") nextPhoto();
+      if (e.key === "ArrowLeft") prevPhoto();
+    });
+  </script>
+</MainLayout>

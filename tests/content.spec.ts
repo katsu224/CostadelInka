@@ -15,11 +15,19 @@ test.describe('Content Verification', () => {
     await expect(page.getByRole('heading', { name: 'Valores' })).toBeVisible();
   });
 
-  test('Rooms page should list 3 types', async ({ page }) => {
+  test('Rooms listing page should show all room types', async ({ page }) => {
     await page.goto('/room');
+    await expect(page.locator('h2', { hasText: 'Habitación Individual' })).toBeVisible();
     await expect(page.locator('h2', { hasText: 'Habitación Doble' })).toBeVisible();
-    await expect(page.locator('h2', { hasText: 'Habitación Matrimonial' })).toBeVisible();
-    await expect(page.locator('h2', { hasText: 'Suite Ejecutiva' })).toBeVisible();
+    await expect(page.locator('h2', { hasText: 'Habitación Superior' })).toBeVisible();
+  });
+
+  test('Room detail page should show gallery and CTA buttons', async ({ page }) => {
+    await page.goto('/rooms/habitacion-doble');
+    await expect(page.locator('h1')).toContainText('Habitación Doble');
+    await expect(page.locator('text=Reservar en Booking')).toBeVisible();
+    await expect(page.locator('text=Consultar por WhatsApp')).toBeVisible();
+    await expect(page.locator('.gallery-thumb')).toHaveCount(4);
   });
 
   test('Contact form should handle submission', async ({ page }) => {

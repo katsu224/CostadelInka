@@ -1,59 +1,245 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Section from '../components/ui/Section.astro';
-import Button from '../components/ui/Button.astro';
+import MainLayout from "../layouts/MainLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Section from "../components/ui/Section.astro";
+import Button from "../components/ui/Button.astro";
+
+const breadcrumbs = [
+  { name: "Inicio", url: "/" },
+  { name: "Servicios", url: "/service" },
+  { name: "Restaurante" },
+];
+
+const menuCategories = [
+  {
+    name: "Entradas",
+    items: [
+      { dish: "Ceviche Clásico", desc: "Pescado fresco marinado en limón con cebolla, camote y choclo", price: "S/ 28" },
+      { dish: "Causa Limeña", desc: "Papa amarilla prensada rellena de pollo o atún", price: "S/ 22" },
+      { dish: "Ensalada Costa del Inka", desc: "Mix de lechugas, palta, tomate cherry, quinua y vinagreta de maracuyá", price: "S/ 18" },
+    ],
+  },
+  {
+    name: "Platos de Fondo",
+    items: [
+      { dish: "Lomo Saltado", desc: "Res salteada al wok con cebolla, tomate, papas fritas y arroz", price: "S/ 35" },
+      { dish: "Arroz con Mariscos", desc: "Arroz cremoso con langostinos, pulpo, calamar y conchas", price: "S/ 38" },
+      { dish: "Ají de Gallina", desc: "Pollo deshilachado en crema de ají amarillo con arroz y papa", price: "S/ 28" },
+      { dish: "Pescado a la Plancha", desc: "Filete del día con ensalada fresca y papas doradas", price: "S/ 32" },
+    ],
+  },
+  {
+    name: "Bebidas",
+    items: [
+      { dish: "Chicha Morada", desc: "Bebida tradicional de maíz morado con frutas", price: "S/ 8" },
+      { dish: "Jugo Natural", desc: "Naranja, piña, papaya o mix del día", price: "S/ 10" },
+      { dish: "Pisco Sour", desc: "Coctel clásico peruano con pisco, limón y clara de huevo", price: "S/ 22" },
+    ],
+  },
+];
 ---
 
-<MainLayout 
-  title="Restaurante" 
-  description="Servicios gastronómicos, menú y horarios de atención del restaurante en Hotel Costa del Inka."
+<MainLayout
+  title="Restaurante | Hotel Costa del Inka Nuevo Chimbote"
+  description="Disfruta de gastronomía local e internacional en el restaurante del Hotel Costa del Inka. Desayuno buffet, almuerzo y cena en Nuevo Chimbote."
+  breadcrumbs={breadcrumbs}
 >
-  <PageHeader 
-    title="Restaurante Costa del Inka" 
+  <PageHeader
+    title="Restaurante Costa del Inka"
     subtitle="Sabores locales e internacionales para deleitar su paladar"
-    backgroundImage="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop"
+    imageSrc="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80"
   />
+  <Breadcrumbs items={breadcrumbs} />
 
+  <!-- Experiencia Gastronómica -->
   <Section>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-      <div class="order-2 md:order-1 relative">
-        <img 
-          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop" 
-          alt="Plato Gourmet" 
+      <div class="order-2 md:order-1 relative" data-reveal="left">
+        <img
+          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop"
+          alt="Plato gourmet del restaurante Hotel Costa del Inka"
           class="rounded-sm shadow-xl w-full"
         />
-        <div class="absolute -bottom-6 -right-6 bg-primary-500 p-6 shadow-xl hidden md:block">
-          <p class="font-heading text-2xl text-dark-900 font-bold">Menú</p>
-          <p class="text-dark-900/80 text-sm uppercase tracking-wider">Variado</p>
+        <div
+          class="absolute -bottom-6 -right-6 bg-primary-500 p-6 shadow-xl hidden md:block"
+        >
+          <p class="font-heading text-2xl text-white font-bold">Menú</p>
+          <p class="text-white/80 text-sm uppercase tracking-wider">Variado</p>
         </div>
       </div>
-      <div class="order-1 md:order-2">
-        <h2 class="font-heading text-3xl text-white font-bold mb-6">Experiencia Gastronómica</h2>
-        <p class="text-white/80 leading-relaxed mb-6">
-          Nuestro restaurante ofrece una selección cuidadosa de platos de la gastronomía local e internacional. Utilizamos ingredientes frescos y de alta calidad para garantizar una experiencia culinaria memorable.
+      <div class="order-1 md:order-2" data-reveal="right">
+        <h2 class="font-heading text-3xl text-heading font-bold mb-6">
+          Experiencia Gastronómica
+        </h2>
+        <p class="text-body leading-relaxed mb-6">
+          Nuestro restaurante ofrece una selección cuidadosa de platos de la
+          gastronomía local e internacional. Utilizamos ingredientes frescos y
+          de alta calidad para garantizar una experiencia culinaria memorable.
         </p>
-        <p class="text-white/80 leading-relaxed mb-8">
-          Ya sea para un desayuno energético, un almuerzo de negocios o una cena romántica, nuestro ambiente y servicio están diseñados para su satisfacción. Atendemos a huéspedes y público en general.
+        <p class="text-muted leading-relaxed mb-8">
+          Ya sea para un desayuno energético, un almuerzo de negocios o una cena
+          romántica, nuestro ambiente y servicio están diseñados para su
+          satisfacción. Atendemos a huéspedes y público en general.
         </p>
-        <div class="bg-dark-800 p-6 border border-white/5 rounded-sm mb-8">
-          <h3 class="font-heading text-xl text-primary-500 font-bold mb-4">Horarios de Atención</h3>
-          <ul class="space-y-2 text-white/70 text-sm">
-            <li class="flex justify-between border-b border-white/5 pb-2">
+        <div class="bg-surface-alt p-6 border border-border rounded-sm mb-8">
+          <h3 class="font-heading text-xl text-primary-500 font-bold mb-4">
+            Horarios de Atención
+          </h3>
+          <ul class="space-y-2 text-body text-sm">
+            <li class="flex justify-between border-b border-border pb-2">
               <span>Desayuno</span>
-              <span>7:00 AM - 10:00 AM</span>
+              <span class="font-medium text-heading">7:00 AM - 10:00 AM</span>
             </li>
-            <li class="flex justify-between border-b border-white/5 pb-2">
+            <li class="flex justify-between border-b border-border pb-2">
               <span>Almuerzo</span>
-              <span>12:30 PM - 3:00 PM</span>
+              <span class="font-medium text-heading">12:30 PM - 3:00 PM</span>
             </li>
             <li class="flex justify-between">
               <span>Cena</span>
-              <span>7:00 PM - 10:00 PM</span>
+              <span class="font-medium text-heading">7:00 PM - 10:00 PM</span>
             </li>
           </ul>
         </div>
         <Button href="/contact">Reservar Mesa</Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Menú -->
+  <Section background="alt">
+    <div class="text-center max-w-3xl mx-auto mb-12" data-reveal="up">
+      <h2 class="font-heading text-3xl text-heading font-bold mb-4">
+        Nuestra Carta
+      </h2>
+      <p class="text-muted leading-relaxed">
+        Una selección de nuestros platos más populares. Los precios y disponibilidad pueden variar según temporada.
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto space-y-10">
+      {menuCategories.map((category) => (
+        <div>
+          <h3 class="font-heading text-2xl text-primary-500 font-bold mb-6 pb-3 border-b-2 border-primary-500/30">
+            {category.name}
+          </h3>
+          <div class="space-y-5">
+            {category.items.map((item) => (
+              <div class="flex justify-between items-start gap-4">
+                <div class="flex-1">
+                  <div class="flex items-baseline gap-2">
+                    <h4 class="font-heading text-lg text-heading font-bold">{item.dish}</h4>
+                    <span class="flex-1 border-b border-dotted border-border min-w-[2rem]"></span>
+                    <span class="font-heading text-lg text-primary-500 font-bold whitespace-nowrap">{item.price}</span>
+                  </div>
+                  <p class="text-muted text-sm mt-1">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-12">
+      <p class="text-muted text-sm mb-4">Descarga nuestra carta completa en PDF</p>
+      <a
+        href="/menu-costa-del-inka.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-3 bg-primary-500 hover:bg-primary-600 text-white font-bold uppercase tracking-wider rounded-sm px-8 py-4 text-sm transition-all duration-300 hover:scale-[1.02] shadow-lg"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        Descargar Menú PDF
+      </a>
+    </div>
+  </Section>
+
+  <!-- Lo que nos distingue -->
+  <Section>
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="font-heading text-3xl text-heading font-bold mb-4">
+        Lo Que Nos Distingue
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal="up" data-reveal-delay="100">
+      <div class="text-center p-6 bg-surface-card border border-border rounded-sm">
+        <div class="w-14 h-14 mx-auto bg-primary-500/10 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="font-heading text-heading font-bold mb-2">Ingredientes Frescos</h3>
+        <p class="text-muted text-sm">Productos locales seleccionados diariamente del mercado</p>
+      </div>
+      <div class="text-center p-6 bg-surface-card border border-border rounded-sm">
+        <div class="w-14 h-14 mx-auto bg-primary-500/10 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+        </div>
+        <h3 class="font-heading text-heading font-bold mb-2">Chef Experimentado</h3>
+        <p class="text-muted text-sm">Años de experiencia en gastronomía peruana e internacional</p>
+      </div>
+      <div class="text-center p-6 bg-surface-card border border-border rounded-sm">
+        <div class="w-14 h-14 mx-auto bg-primary-500/10 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+          </svg>
+        </div>
+        <h3 class="font-heading text-heading font-bold mb-2">Abierto al Público</h3>
+        <p class="text-muted text-sm">No necesitas ser huésped para disfrutar de nuestra cocina</p>
+      </div>
+      <div class="text-center p-6 bg-surface-card border border-border rounded-sm">
+        <div class="w-14 h-14 mx-auto bg-primary-500/10 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+          </svg>
+        </div>
+        <h3 class="font-heading text-heading font-bold mb-2">Ambiente Acogedor</h3>
+        <p class="text-muted text-sm">Decoración elegante con iluminación cálida para cada ocasión</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Desayuno incluido -->
+  <Section background="alt" padding="md">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="text-primary-500 text-sm font-bold uppercase tracking-widest mb-3 block">Para huéspedes</span>
+        <h2 class="font-heading text-3xl text-heading font-bold mb-6">
+          Desayuno Buffet Incluido
+        </h2>
+        <p class="text-body leading-relaxed mb-6">
+          Todos nuestros huéspedes disfrutan de un desayuno buffet completo, servido cada mañana de 7:00 a 10:00 AM. Ofrecemos:
+        </p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-center gap-3 text-body">
+            <span class="text-primary-500 font-bold">&#10003;</span> Panes artesanales y tostadas
+          </li>
+          <li class="flex items-center gap-3 text-body">
+            <span class="text-primary-500 font-bold">&#10003;</span> Frutas frescas de temporada
+          </li>
+          <li class="flex items-center gap-3 text-body">
+            <span class="text-primary-500 font-bold">&#10003;</span> Huevos preparados a su gusto
+          </li>
+          <li class="flex items-center gap-3 text-body">
+            <span class="text-primary-500 font-bold">&#10003;</span> Jugos naturales, café y té
+          </li>
+          <li class="flex items-center gap-3 text-body">
+            <span class="text-primary-500 font-bold">&#10003;</span> Opciones regionales y continentales
+          </li>
+        </ul>
+        <Button href="/room">Ver Habitaciones</Button>
+      </div>
+      <div class="relative">
+        <img
+          src="https://images.unsplash.com/photo-1596178065849-0f852e18eb8b?q=80&w=2070&auto=format&fit=crop"
+          alt="Desayuno buffet Hotel Costa del Inka"
+          class="rounded-sm shadow-xl w-full"
+        />
       </div>
     </div>
   </Section>

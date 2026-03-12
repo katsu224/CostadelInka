@@ -1,25 +1,43 @@
 ---
-import '@fontsource/playfair-display';
-import '@fontsource/inter';
-import '../styles/global.css';
+import "@fontsource/playfair-display";
+import "@fontsource/inter";
+import "../styles/global.css";
 
-import SEOHead from '../components/SEOHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import { ViewTransitions } from "astro:transitions";
+import SEOHead from "../components/SEOHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SeasonalEffect from "../components/SeasonalEffect.astro";
+import FloatingActions from "../components/FloatingActions.astro";
+
+export type Theme = "default" | "christmas" | "valentine";
+
+interface BreadcrumbItem {
+  name: string;
+  url?: string;
+}
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
-  type?: 'website' | 'article';
+  type?: "website" | "article";
+  activeTheme?: Theme;
+  schema?: Record<string, any> | Record<string, any>[];
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-const { 
-  title, 
+const {
+  title,
   description = "Hotel Costa del Inka - Experiencia única y servicio personalizado en Nuevo Chimbote. Habitaciones modernas, restaurante, sala de eventos y más.",
   image,
-  type
+  type,
+  activeTheme = "default",
+  schema,
+  breadcrumbs,
 } = Astro.props;
+
+const themeClass = activeTheme !== "default" ? `theme-${activeTheme}` : "";
 ---
 
 <!doctype html>
@@ -29,13 +47,89 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <SEOHead title={title} description={description} image={image} type={type} />
+    <SEOHead
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      schema={schema}
+      breadcrumbs={breadcrumbs}
+    />
+    <ViewTransitions />
+    <!-- Aplicar dark-mode ANTES del primer paint para evitar flash -->
+    <script is:inline>
+      (function () {
+        var saved = localStorage.getItem("hotel-theme-mode");
+        var prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (saved === "dark" || (!saved && prefersDark)) {
+          document.documentElement.classList.add("is-dark");
+        }
+      })();
+    </script>
+    <style is:inline>
+      .video-bg {
+        transition: opacity 0.8s ease;
+      }
+      .video-bg.loaded {
+        opacity: 1;
+      }
+    </style>
   </head>
-  <body class="bg-dark-900 text-dark-50 antialiased selection:bg-primary-500/30 selection:text-white flex flex-col min-h-screen">
+  <body
+    class:list={[
+      "bg-surface text-body antialiased selection:bg-primary-500/30 selection:text-white flex flex-col min-h-screen",
+      themeClass,
+    ]}
+  >
+    <SeasonalEffect theme={activeTheme} />
     <Header />
-    <main class="flex-grow pt-20"> <!-- pt-20 to account for fixed header -->
+    <main class="flex-grow">
       <slot />
     </main>
     <Footer />
+    <FloatingActions />
+    <!-- Video fade-in global -->
+    <script is:inline>
+      document.querySelectorAll(".video-bg").forEach(function (video) {
+        function reveal() {
+          video.classList.add("loaded");
+        }
+        if (video.readyState >= 3) {
+          reveal();
+        } else {
+          video.addEventListener("canplay", reveal, { once: true });
+        }
+      });
+    </script>
+
+    <!-- Scroll Reveal Animation System -->
+    <script is:inline>
+      function initScrollReveal() {
+        var elements = document.querySelectorAll('[data-reveal]');
+        if (!elements.length) return;
+
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              var el = entry.target;
+              var delay = el.getAttribute('data-reveal-delay') || '0';
+              el.style.transitionDelay = delay + 'ms';
+              el.classList.add('revealed');
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        elements.forEach(function(el) { observer.observe(el); });
+      }
+
+      // Run on initial load
+      initScrollReveal();
+
+      // Re-run after View Transitions navigation
+      document.addEventListener('astro:page-load', initScrollReveal);
+    </script>
   </body>
 </html>

@@ -2,24 +2,24 @@
 interface Props {
   id?: string;
   class?: string;
-  background?: 'default' | 'alt' | 'darker';
+  background?: 'default' | 'alt' | 'dark';
   padding?: 'none' | 'sm' | 'md' | 'lg';
 }
 
-const { 
-  id, 
-  class: className, 
+const {
+  id,
+  class: className,
   background = 'default',
   padding = 'lg'
 } = Astro.props;
 
-const backgrounds = {
-  default: "bg-dark-900",
-  alt: "bg-dark-950",
-  darker: "bg-black",
+const backgrounds: Record<string, string> = {
+  default: "bg-surface",
+  alt: "bg-surface-alt",
+  dark: "bg-dark-900 text-white",
 };
 
-const paddings = {
+const paddings: Record<string, string> = {
   none: "",
   sm: "py-12",
   md: "py-20",

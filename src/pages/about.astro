@@ -1,76 +1,379 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Section from '../components/ui/Section.astro';
+import MainLayout from "../layouts/MainLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Section from "../components/ui/Section.astro";
+
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "Historia del Hotel Costa del Inka",
+  description:
+    "Hotel 3 estrellas en Nuevo Chimbote con tradición de hospitalidad en la región Ancash del Perú.",
+  mainEntity: {
+    "@type": "Hotel",
+    name: "Hotel Costa del Inka",
+    foundingLocation: "Nuevo Chimbote, Ancash, Perú",
+  },
+};
+
+const breadcrumbs = [
+  { name: "Inicio", url: "/" },
+  { name: "Nosotros" },
+];
 ---
 
-<MainLayout 
-  title="Nosotros - Historia y Filosofía" 
-  description="Conozca la historia, misión y visión del Hotel Costa del Inka. Compromiso con la calidad, el servicio personalizado y la responsabilidad social."
+<MainLayout
+  title="Nosotros | Hotel Costa del Inka | Historia y Valores en Chimbote"
+  description="Conoce la historia del Hotel Costa del Inka, hotel 3 estrellas en Nuevo Chimbote con años de experiencia brindando confort y hospitalidad en Ancash, Perú."
+  schema={aboutSchema}
+  breadcrumbs={breadcrumbs}
 >
-  <PageHeader 
-    title="Nuestra Historia" 
+  <PageHeader
+    title="Más de 10 años siendo el hogar de los viajeros en Chimbote"
     subtitle="Tradición de hospitalidad y compromiso con la excelencia"
-    backgroundImage="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop"
+    imageSrc="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1920&q=80"
   />
+  <Breadcrumbs items={breadcrumbs} />
 
   <Section>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
-      <div>
-        <h2 class="font-heading text-3xl text-white font-bold mb-6">Sobre Nosotros</h2>
-        <p class="text-white/80 leading-relaxed mb-6">
-          El Hotel Costa del Inka nació con la promesa de ofrecer una experiencia única y un servicio personalizado. Nuestra moderna edificación cuenta con 40 habitaciones en categorías dobles, matrimoniales y suites, todas diseñadas individualmente y equipadas para brindar el máximo confort.
-        </p>
-        <p class="text-white/80 leading-relaxed">
-          Ubicados estratégicamente en Nuevo Chimbote, nos hemos convertido en un referente de calidad y hospitalidad en la región, combinando instalaciones modernas con un trato cálido y familiar.
-        </p>
+    <div
+      class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24"
+    >
+      <div class="space-y-8">
+        <h2 class="font-heading text-4xl text-heading font-bold">
+          Sobre Nosotros
+        </h2>
+        <div class="space-y-6">
+          <!-- Item 1 -->
+          <div class="flex gap-4">
+            <div
+              class="flex-shrink-0 w-12 h-12 rounded-full border border-primary-500/30 flex items-center justify-center text-primary-500 bg-primary-500/5 shadow-[0_0_15px_rgba(212,175,55,0.15)]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon
+                  points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
+                ></polygon>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-heading mb-1">
+                Referente Regional
+              </h3>
+              <p class="text-body leading-relaxed text-sm">
+                Ubicados estratégicamente en Nuevo Chimbote, nos hemos
+                convertido en un referente de calidad y hospitalidad en la
+                región, combinando instalaciones modernas con un trato cálido y
+                familiar.
+              </p>
+            </div>
+          </div>
+          <!-- Item 2 -->
+          <div class="flex gap-4">
+            <div
+              class="flex-shrink-0 w-12 h-12 rounded-full border border-primary-500/30 flex items-center justify-center text-primary-500 bg-primary-500/5 shadow-[0_0_15px_rgba(212,175,55,0.15)]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"
+                ></path>
+                <path d="m21 2-9.6 9.6"></path>
+                <circle cx="7.5" cy="15.5" r="5.5"></circle>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-heading mb-1">
+                Hospedaje Boutique
+              </h3>
+              <p class="text-body leading-relaxed text-sm">
+                Nuestra moderna edificación cuenta con 40 habitaciones en
+                categorías dobles, matrimoniales y suites, todas diseñadas
+                individualmente y equipadas para brindar el máximo confort.
+              </p>
+            </div>
+          </div>
+          <!-- Item 3 -->
+          <div class="flex gap-4">
+            <div
+              class="flex-shrink-0 w-12 h-12 rounded-full border border-primary-500/30 flex items-center justify-center text-primary-500 bg-primary-500/5 shadow-[0_0_15px_rgba(212,175,55,0.15)]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+                <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+                <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+                <path
+                  d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-heading mb-1">
+                Atención Personalizada
+              </h3>
+              <p class="text-body leading-relaxed text-sm">
+                El Hotel Costa del Inka nació con la promesa de ofrecer una
+                experiencia única y un servicio verdaderamente personalizado
+                para cada uno de nuestros huéspedes.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="relative">
-        <div class="absolute inset-0 bg-primary-500/20 translate-x-4 translate-y-4 rounded-sm"></div>
-        <img 
-          src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=2070&auto=format&fit=crop" 
-          alt="Hotel Lobby" 
-          class="relative rounded-sm shadow-xl w-full"
-        />
+
+      <div class="relative group mt-8 lg:mt-0">
+        <!-- Glow / Resplandor Lujoso -->
+        <div
+          class="absolute -inset-2 bg-gradient-to-r from-primary-600 to-primary-400 rounded-sm blur-lg opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"
+        >
+        </div>
+        <div
+          class="relative rounded-sm overflow-hidden border border-black/5 dark:border-white/10 shadow-2xl"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=2070&auto=format&fit=crop"
+            alt="Hotel Lobby"
+            class="w-full h-[350px] md:h-[500px] object-cover hover:scale-105 transition-transform duration-700"
+          />
+        </div>
+        <!-- Marco Decorativo Dorado Superior -->
+        <div
+          class="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-primary-500 opacity-50 hidden md:block group-hover:scale-110 transition-transform duration-500"
+        >
+        </div>
+        <!-- Marco Decorativo Dorado Inferior -->
+        <div
+          class="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-primary-500 opacity-50 hidden md:block group-hover:scale-110 transition-transform duration-500"
+        >
+        </div>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-      {/* Misión */}
-      <div class="bg-dark-800 p-10 rounded-sm border border-white/5 hover:border-primary-500/50 transition-all duration-300">
-        <div class="w-16 h-16 bg-dark-900 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 text-primary-500">
-          🎯
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center pt-8">
+      <!-- Tarjeta Misión -->
+      <div
+        class="relative group p-10 rounded-xl overflow-hidden backdrop-blur-xl bg-surface-card/90 border border-black/5 dark:border-white/10 shadow-xl transition-all duration-300 hover:bg-surface-card hover:-translate-y-2"
+      >
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
         </div>
-        <h3 class="font-heading text-xl text-white font-bold mb-4">Misión</h3>
-        <p class="text-white/60 text-sm leading-relaxed">
-          Proporcionar una genuina atención así como productos y servicios que sean de entera comodidad; teniendo como base la responsabilidad social y ambiental que vayan dejando huellas en la comunidad.
-        </p>
+        <div class="relative z-10">
+          <div
+            class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-400 text-white shadow-lg"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-8 h-8"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+          </div>
+          <h3 class="font-heading text-2xl text-heading font-bold mb-4">
+            Misión
+          </h3>
+          <p class="text-body text-sm leading-relaxed font-medium">
+            Proporcionar una genuina atención así como productos y servicios que
+            sean de entera comodidad; teniendo como base la responsabilidad
+            social y ambiental que vayan dejando huellas en la comunidad.
+          </p>
+        </div>
       </div>
 
-      {/* Visión */}
-      <div class="bg-dark-800 p-10 rounded-sm border border-white/5 hover:border-primary-500/50 transition-all duration-300 relative transform md:-translate-y-4">
-        <div class="w-16 h-16 bg-dark-900 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 text-primary-500">
-          👁️
+      <!-- Tarjeta Visión -->
+      <div
+        class="relative group p-10 rounded-xl overflow-hidden backdrop-blur-xl bg-surface-card/90 border border-black/5 dark:border-white/10 shadow-xl transition-all duration-300 hover:bg-surface-card md:-translate-y-4 hover:-translate-y-6"
+      >
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
         </div>
-        <h3 class="font-heading text-xl text-white font-bold mb-4">Visión</h3>
-        <p class="text-white/60 text-sm leading-relaxed">
-          Ser el mejor en el rubro hotelero teniendo como bases significativas los proyectos de vida. Aspiramos a ser reconocidos por nuestra excelencia y compromiso.
-        </p>
+        <div class="relative z-10">
+          <div
+            class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-400 text-white shadow-lg"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-8 h-8"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44"
+              ></path>
+              <path d="m13.56 11.747 4.332-.924"></path>
+              <path d="m16 21-3.105-6.21"></path>
+              <path
+                d="M16.485 5.33 20.6 6.213a1.192 1.192 0 0 1 .958 1.523l-.642 2.567a1.184 1.184 0 0 1-1.45.833l-4.041-.86"
+              ></path>
+              <path d="m6.155 13.326 3.105 6.21"></path>
+            </svg>
+          </div>
+          <h3 class="font-heading text-2xl text-heading font-bold mb-4">
+            Visión
+          </h3>
+          <p class="text-body text-sm leading-relaxed font-medium">
+            Ser el mejor en el rubro hotelero teniendo como bases significativas
+            los proyectos de vida. Aspiramos a ser reconocidos por nuestra
+            excelencia y compromiso.
+          </p>
+        </div>
       </div>
 
-      {/* Valores */}
-      <div class="bg-dark-800 p-10 rounded-sm border border-white/5 hover:border-primary-500/50 transition-all duration-300">
-        <div class="w-16 h-16 bg-dark-900 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 text-primary-500">
-          💎
+      <!-- Tarjeta Valores -->
+      <div
+        class="relative group p-10 rounded-xl overflow-hidden backdrop-blur-xl bg-surface-card/90 border border-black/5 dark:border-white/10 shadow-xl transition-all duration-300 hover:bg-surface-card hover:-translate-y-2"
+      >
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
         </div>
-        <h3 class="font-heading text-xl text-white font-bold mb-4">Valores</h3>
-        <ul class="text-white/60 text-sm leading-relaxed space-y-2 text-left inline-block">
-          <li>✨ Calidad en el servicio</li>
-          <li>🤝 Servicio personalizado</li>
-          <li>🛋️ Confort y comodidad</li>
-          <li>🌱 Responsabilidad social y ambiental</li>
-          <li>❤️ Actitud, motivación y compromiso</li>
-        </ul>
+        <div class="relative z-10">
+          <div
+            class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-400 text-white shadow-lg"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-8 h-8"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.42 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.42 0Z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="font-heading text-2xl text-heading font-bold mb-4">
+            Valores
+          </h3>
+          <ul
+            class="text-body text-sm leading-relaxed space-y-3 text-left inline-block font-medium"
+          >
+            <li class="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-primary-500 flex-shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                ></path></svg
+              >
+              Calidad en el servicio
+            </li>
+            <li class="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-primary-500 flex-shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                ></path></svg
+              >
+              Servicio personalizado
+            </li>
+            <li class="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-primary-500 flex-shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                ></path></svg
+              >
+              Confort y comodidad
+            </li>
+            <li class="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-primary-500 flex-shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                ></path></svg
+              >
+              Responsabilidad social y ambiental
+            </li>
+            <li class="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-primary-500 flex-shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                ></path></svg
+              >
+              Actitud, motivación y compromiso
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </Section>

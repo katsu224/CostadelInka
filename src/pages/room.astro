@@ -1,178 +1,269 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Section from '../components/ui/Section.astro';
-import Button from '../components/ui/Button.astro';
+import MainLayout from "../layouts/MainLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Section from "../components/ui/Section.astro";
+import Button from "../components/ui/Button.astro";
+import { rooms } from "../data/rooms-data";
 
-export const prerender = false;
-
-// 1. Detectamos si la URL del navegador tiene "?token=..."
-const previewToken = Astro.url.searchParams.get('token');
-const isPreview = previewToken === import.meta.env.PREVIEW_SECRET;
-
-// 2. MAGIA ANTI-CACHÉ Y SEGURIDAD
-const API_BASE = import.meta.env.API_URL;
-const API_URL = `${API_BASE}/api/v1/delivery/websites/5d86b344-037c-41b2-a616-8e271325b98c/pages/room${isPreview ? `?preview=true&nocache=${Date.now()}` : ''}`;
-
-// 3. 🚨 AQUI ESTÁ EL CAMBIO: Preparamos los Headers con el Token VIP 🚨
-const fetchHeaders: HeadersInit = isPreview 
-  ? { 
-      'Cache-Control': 'no-cache',
-      'Authorization': `Bearer ${import.meta.env.PREVIEW_SECRET}` // <-- Arquitectura Limpia
-    } 
-  : {};
-
-let rooms = [];
-let headerData = {
-  title: "Habitaciones",
-  subtitle: ""
+const roomsListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Habitaciones Hotel Costa del Inka",
+  itemListElement: rooms.map((room, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: room.title,
+    url: `https://costadelinkahotel.com/rooms/${room.id}`,
+  })),
 };
 
-let error = null;
-
-try {
-  // 4. Hacemos el fetch enviando los headers seguros
-  const res = await fetch(API_URL, {
-      cache: isPreview ? 'no-store' : 'force-cache', // Si es preview no guarda caché
-      headers: fetchHeaders
-  });
-
-  if (!res.ok) {
-    throw new Error(`API Error: ${res.status}`);
-  }
-
-  const json = await res.json();
-  const blocks = json.data?.blocks || [];
-
-  // 🔹 HEADER
-  const headerBlock = blocks.find((b: any) => b.type === "header");
-
-  if (headerBlock?.content) {
-    headerData = {
-      title: headerBlock.content.titulo || "Habitaciones",
-      subtitle: headerBlock.content.subtitulo || ""
-    };
-  }
-
-  // 🔹 HABITACIONES
-  const habitacionesBlock = blocks.find((b: any) => b.type === "habitaciones");
-
-  if (habitacionesBlock?.content?.habitaciones) {
-    const rawData = habitacionesBlock.content.habitaciones;
-
-    rooms = rawData.map((item: any, index: number) => {
-      return {
-        id: String(index + 1),
-        title: item.nombre_del_cuarto || "Habitación Estándar",
-        image: item.imagen || "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop",
-        description: item.descripcion_del_cuarto || "Sin descripción disponible.",
-        features: item.caracteristicas
-          ? item.caracteristicas.map((f: any) => f.caracteristica)
-          : [],
-        price: item.precio ?? null
-      };
-    });
-  }
-
-} catch (e) {
-  console.error("Failed to fetch rooms:", e);
-  error = true;
-}
+const breadcrumbs = [{ name: "Inicio", url: "/" }, { name: "Habitaciones" }];
 ---
 
-<MainLayout 
-  title={`${headerData.title} - Confort y Lujo`}
-  description={headerData.subtitle}
+<MainLayout
+  title="Habitaciones | Hotel Costa del Inka Nuevo Chimbote"
+  description="Conoce todas nuestras habitaciones en el Hotel Costa del Inka: individuales, dobles, triples, cuádruples y suites. WiFi gratis, frigobar y desayuno disponible en Nuevo Chimbote."
+  schema={roomsListSchema}
+  breadcrumbs={breadcrumbs}
 >
-  {/* Banner decorativo flotante que avisa que estás en Modo Borrador */}
-  {isPreview && (
-    <div class="fixed top-0 left-0 w-full bg-[#9D2B48] text-white text-center py-2 text-sm font-bold z-50 animate-pulse">
-      Modo Vista Previa: Estás viendo los cambios sin publicar.
-    </div>
-  )}
-
-  <PageHeader 
-    title={headerData.title}
-    subtitle={headerData.subtitle}
-    backgroundImage="https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop"
+  <PageHeader
+    title="Habitaciones para cada tipo de viajero"
+    subtitle="Confort y elegancia en cada una de nuestras habitaciones"
+    imageSrc="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1920&q=80"
   />
 
+  <Breadcrumbs items={breadcrumbs} />
+
+  <!-- Filtros -->
   <Section>
-    {error ? (
-      <div class="text-center py-20">
-        <h3 class="text-2xl text-red-500 font-bold">
-          Lo sentimos, no pudimos cargar las habitaciones.
-        </h3>
-        <p class="text-white/60">
-          Por favor, intente nuevamente más tarde.
-        </p>
-      </div>
-    ) : (
-      <div class="grid grid-cols-1 gap-16">
-        {rooms.map((room, index) => (
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            
-            {/* Imagen */}
-            <div class={`relative h-[400px] overflow-hidden rounded-sm group ${index % 2 === 1 ? 'lg:order-2' : 'lg:order-1'}`}>
-              <img 
-                src={room.image} 
-                alt={room.title}
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 to-transparent lg:hidden"></div>
-            </div>
-            
-            {/* Contenido */}
-            <div class={`flex flex-col justify-center ${index % 2 === 1 ? 'lg:order-1' : 'lg:order-2'}`}>
-              
-              <span class="text-primary-500 font-bold tracking-widest uppercase text-sm mb-2 block">
-                Categoría <span class="text-white/40 ml-2 text-xs">#{room.id}</span>
-              </span>
-              
-              <h2 class="font-heading text-3xl md:text-4xl text-white font-bold mb-6">
-                {room.title}
-              </h2>
-              
-              <p class="text-white/70 text-lg leading-relaxed mb-6">
-                {room.description}
-              </p>
+    <div
+      class="flex flex-wrap justify-center gap-3 mb-12"
+      role="tablist"
+      aria-label="Filtrar habitaciones por capacidad"
+      data-reveal="up"
+    >
+      <button
+        class="room-filter-btn active px-6 py-2.5 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-primary-500 bg-primary-500 text-white transition-all duration-300"
+        data-filter="all"
+        role="tab"
+        aria-selected="true"
+      >
+        Todas
+      </button>
+      <button
+        class="room-filter-btn px-6 py-2.5 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-500 hover:text-primary-500 transition-all duration-300"
+        data-filter="solo,pareja"
+        role="tab"
+        aria-selected="false"
+      >
+        1-2 Personas
+      </button>
+      <button
+        class="room-filter-btn px-6 py-2.5 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-500 hover:text-primary-500 transition-all duration-300"
+        data-filter="familiar"
+        role="tab"
+        aria-selected="false"
+      >
+        Familiar 3-4
+      </button>
+    </div>
 
-              {room.price !== null && (
-                <p class="text-primary-400 text-xl font-semibold mb-6">
-                  ${room.price} / noche
-                </p>
-              )}
-              
-              {room.features.length > 0 && (
-                <ul class="grid grid-cols-2 gap-4 mb-8">
-                  {room.features.map((feature: string) => (
-                    <li class="flex items-center gap-3 text-white/60 text-sm">
-                      <span class="text-primary-500">✓</span> {feature}
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              <div class="mt-auto">
-                {/* Mantenemos el token para que la navegación siga en modo preview */}
-                <Button href={`/rooms/${room.id}${isPreview ? `?token=${previewToken}` : ''}`} size="lg">
-                  Reservar Ahora
-                </Button>
+    <div class="grid grid-cols-1 gap-16" id="rooms-list" data-reveal="up">
+      {
+        rooms.map((room, index) => (
+          <div
+            class="room-card grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+            data-category={room.category}
+          >
+            <div
+              class={`relative h-[400px] overflow-hidden rounded-sm group shadow-lg ${index % 2 === 1 ? "lg:order-2" : "lg:order-1"}`}
+            >
+              <a href={`/rooms/${room.id}`} class="block w-full h-full">
+                <img
+                  src={room.gallery[0]}
+                  alt={`${room.title} Hotel Costa del Inka Nuevo Chimbote`}
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading={index < 2 ? "eager" : "lazy"}
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </a>
+              <div class="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-sm text-sm font-bold shadow-lg">
+                Desde S/ {room.priceFrom}
               </div>
             </div>
 
+            <div
+              class={`flex flex-col justify-center ${index % 2 === 1 ? "lg:order-1" : "lg:order-2"}`}
+            >
+              <span class="text-primary-500 font-bold tracking-widest uppercase text-sm mb-2 block">
+                {room.size} · {room.beds}
+              </span>
+              <h2 class="font-heading text-3xl md:text-4xl text-heading font-bold mb-4">
+                {room.title}
+              </h2>
+              <p class="text-primary-600 font-bold text-lg mb-4">
+                Desde S/ {room.priceFrom}{" "}
+                <span class="text-muted text-sm font-normal">/ noche</span>
+              </p>
+              <p class="text-body text-lg leading-relaxed mb-6">
+                {room.description}
+              </p>
+              {room.highlights.length > 0 && (
+                <div class="flex flex-wrap gap-2 mb-8">
+                  {room.highlights.slice(0, 5).map((h: string) => (
+                    <span class="inline-flex items-center gap-1.5 bg-surface-alt border border-border rounded-sm px-3 py-1.5 text-xs text-muted font-medium">
+                      <span class="text-primary-500">&#10022;</span> {h}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <div class="mt-auto">
+                <Button href={`/rooms/${room.id}`} size="lg">
+                  Ver Detalles
+                </Button>
+              </div>
+            </div>
           </div>
-        ))}
-      </div>
-    )}
-  </Section>
+        ))
+      }
+    </div>
 
-  <Section background="alt" padding="md">
-    <div class="text-center max-w-2xl mx-auto">
-      <h3 class="font-heading text-3xl text-white font-bold mb-6">
-        Servicios Incluidos
-      </h3>
+    <p id="no-rooms-msg" class="hidden text-center text-muted py-12 text-lg">
+      No hay habitaciones en esta categoría.
+    </p>
+  </Section>
+  <Section padding="md">
+    <div class="mb-8">
+      <h2 class="font-heading text-2xl md:text-3xl text-heading font-bold mb-2">
+        Compara nuestras habitaciones
+      </h2>
+      <div class="w-16 h-1 bg-primary-500"></div>
+    </div>
+
+    <div class="overflow-x-auto -mx-6 px-6" data-reveal="up">
+      <table class="w-full text-sm border-collapse min-w-[600px]" role="table">
+        <thead>
+          <tr class="border-b-2 border-primary-500/30">
+            <th class="text-left py-3 px-4 text-heading font-bold"
+              >Habitación</th
+            >
+            <th class="text-center py-3 px-4 text-heading font-bold">Camas</th>
+            <th class="text-center py-3 px-4 text-heading font-bold"
+              >Huéspedes</th
+            >
+            <th class="text-center py-3 px-4 text-heading font-bold">A/C</th>
+            <th class="text-center py-3 px-4 text-heading font-bold">Vista</th>
+            <th class="text-center py-3 px-4 text-heading font-bold"
+              >Frigobar</th
+            >
+            <th class="text-right py-3 px-4 text-heading font-bold">Desde</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rooms.map((room, i) => (
+              <tr
+                class={`border-b border-border hover:bg-surface-alt/50 transition-colors ${i % 2 === 0 ? "bg-surface" : "bg-surface-card"}`}
+              >
+                <td class="py-3 px-4">
+                  <a
+                    href={`/rooms/${room.id}`}
+                    class="text-heading font-medium hover:text-primary-500 transition-colors"
+                  >
+                    {room.shortTitle}
+                  </a>
+                </td>
+                <td class="text-center py-3 px-4 text-muted">{room.beds}</td>
+                <td class="text-center py-3 px-4 text-muted">
+                  Máx. {room.maxGuests}
+                </td>
+                <td class="text-center py-3 px-4">
+                  {room.hasAC ? (
+                    <span class="text-primary-500 font-bold" aria-label="Sí">
+                      &#10003;
+                    </span>
+                  ) : (
+                    <span class="text-muted" aria-label="No">
+                      &#10007;
+                    </span>
+                  )}
+                </td>
+                <td class="text-center py-3 px-4">
+                  {room.hasCityView ? (
+                    <span class="text-primary-500 font-bold" aria-label="Sí">
+                      &#10003;
+                    </span>
+                  ) : (
+                    <span class="text-muted" aria-label="No">
+                      &#10007;
+                    </span>
+                  )}
+                </td>
+                <td class="text-center py-3 px-4">
+                  {room.hasMinibar ? (
+                    <span class="text-primary-500 font-bold" aria-label="Sí">
+                      &#10003;
+                    </span>
+                  ) : (
+                    <span class="text-muted" aria-label="No">
+                      &#10007;
+                    </span>
+                  )}
+                </td>
+                <td class="text-right py-3 px-4 font-bold text-primary-600">
+                  S/ {room.priceFrom}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
     </div>
   </Section>
-
 </MainLayout>
+
+<script is:inline>
+  document.querySelectorAll(".room-filter-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      // Update active state
+      document.querySelectorAll(".room-filter-btn").forEach(function (b) {
+        b.classList.remove(
+          "active",
+          "bg-primary-500",
+          "text-white",
+          "border-primary-500",
+        );
+        b.classList.add("border-border", "text-muted");
+        b.setAttribute("aria-selected", "false");
+      });
+      btn.classList.add(
+        "active",
+        "bg-primary-500",
+        "text-white",
+        "border-primary-500",
+      );
+      btn.classList.remove("border-border", "text-muted");
+      btn.setAttribute("aria-selected", "true");
+
+      var filter = btn.dataset.filter;
+      var filters = filter.split(",");
+      var cards = document.querySelectorAll(".room-card");
+      var visibleCount = 0;
+
+      cards.forEach(function (card) {
+        if (filter === "all" || filters.indexOf(card.dataset.category) !== -1) {
+          card.style.display = "";
+          visibleCount++;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      var noMsg = document.getElementById("no-rooms-msg");
+      if (noMsg) {
+        noMsg.classList.toggle("hidden", visibleCount > 0);
+      }
+    });
+  });
+</script>

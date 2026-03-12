@@ -1,83 +1,221 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Section from '../components/ui/Section.astro';
-import Button from '../components/ui/Button.astro';
+import MainLayout from "../layouts/MainLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Section from "../components/ui/Section.astro";
+import Button from "../components/ui/Button.astro";
 
 const events = [
   {
     title: "Conferencias",
-    desc: "Equipamiento audiovisual de última generación.",
-    icon: "🎤"
+    desc: "Equipamiento audiovisual completo con proyector HD, ecran, micrófono inalámbrico y sistema de sonido profesional. Ideal para presentaciones corporativas y seminarios.",
+    icon: "🎤",
+    capacity: "Hasta 80 personas",
   },
   {
     title: "Matrimonios",
-    desc: "Elegancia y servicio integral para su día especial.",
-    icon: "💍"
+    desc: "Decoración personalizada, catering completo, coordinación integral y ambientes elegantes para que su día especial sea inolvidable.",
+    icon: "💍",
+    capacity: "Hasta 120 personas",
   },
   {
     title: "Capacitaciones",
-    desc: "Ambientes propicios para el aprendizaje y networking.",
-    icon: "📈"
-  }
+    desc: "Mobiliario modular, WiFi de alta velocidad, coffee break incluido y ambientes propicios para el aprendizaje y networking empresarial.",
+    icon: "📈",
+    capacity: "Hasta 50 personas",
+  },
+  {
+    title: "Cumpleaños y Celebraciones",
+    desc: "Paquetes especiales con decoración temática, menú personalizado, música y todo lo necesario para su celebración.",
+    icon: "🎂",
+    capacity: "Hasta 80 personas",
+  },
+];
+
+const breadcrumbs = [
+  { name: "Inicio", url: "/" },
+  { name: "Servicios", url: "/service" },
+  { name: "Sala de Eventos" },
 ];
 ---
 
-<MainLayout 
-  title="Sala de Eventos" 
-  description="Detalles sobre las instalaciones para eventos, conferencias y celebraciones en Hotel Costa del Inka."
+<MainLayout
+  title="Sala de Eventos | Hotel Costa del Inka Nuevo Chimbote"
+  description="Espacios equipados para conferencias, matrimonios y celebraciones en el Hotel Costa del Inka, Nuevo Chimbote. Servicio integral y equipamiento audiovisual."
+  breadcrumbs={breadcrumbs}
 >
-  <PageHeader 
-    title="Eventos y Conferencias" 
+  <PageHeader
+    title="Eventos y Conferencias"
     subtitle="El escenario perfecto para sus momentos importantes"
-    backgroundImage="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop"
+    imageSrc="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1920&q=80"
   />
+  <Breadcrumbs items={breadcrumbs} />
 
+  <!-- Intro -->
   <Section>
-    <div class="max-w-4xl mx-auto text-center mb-16">
-      <h2 class="font-heading text-3xl text-white font-bold mb-6">Instalaciones Versátiles</h2>
-      <p class="text-white/80 leading-relaxed text-lg">
-        Contamos con salones adaptables para todo tipo de eventos. Desde reuniones corporativas hasta grandes celebraciones sociales, nuestro equipo se encarga de cada detalle para asegurar el éxito de su evento.
+    <div class="max-w-4xl mx-auto text-center mb-16" data-reveal="up">
+      <h2 class="font-heading text-3xl text-heading font-bold mb-6">
+        Instalaciones Versátiles
+      </h2>
+      <p class="text-body leading-relaxed text-lg">
+        Contamos con salones adaptables para todo tipo de eventos. Desde
+        reuniones corporativas hasta grandes celebraciones sociales, nuestro
+        equipo se encarga de cada detalle para asegurar el éxito de su evento.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-      {events.map(item => (
-        <div class="bg-dark-800 p-8 rounded-sm border border-white/5 text-center hover:bg-dark-700 transition-colors">
-          <div class="text-4xl mb-4">{item.icon}</div>
-          <h3 class="font-heading text-xl text-white font-bold mb-2">{item.title}</h3>
-          <p class="text-white/60 text-sm">{item.desc}</p>
-        </div>
-      ))}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16" data-reveal="up" data-reveal-delay="100">
+      {
+        events.map((item) => (
+          <div class="bg-surface-card p-8 rounded-sm border border-border shadow-sm hover:shadow-lg transition-all group">
+            <div class="flex items-start gap-5">
+              <div class="text-4xl">{item.icon}</div>
+              <div class="flex-1">
+                <h3 class="font-heading text-xl text-heading font-bold mb-2">
+                  {item.title}
+                </h3>
+                <p class="text-muted text-sm leading-relaxed mb-3">{item.desc}</p>
+                <span class="inline-block text-xs font-bold text-primary-500 bg-primary-500/10 px-3 py-1 rounded-sm uppercase tracking-wider">
+                  {item.capacity}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))
+      }
     </div>
+  </Section>
 
-    <div class="bg-dark-800 p-8 md:p-12 rounded-sm border border-white/5 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+  <!-- Servicios incluidos + galería -->
+  <Section background="alt">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div>
-        <h3 class="font-heading text-2xl text-primary-500 font-bold mb-4">Servicios Incluidos</h3>
-        <ul class="space-y-4 text-white/70">
+        <h3 class="font-heading text-2xl text-primary-500 font-bold mb-6">
+          Todo Incluido en Su Evento
+        </h3>
+        <ul class="space-y-4 text-body">
           <li class="flex items-center gap-3">
-            <span class="text-primary-500">✓</span> Proyector Multimedia y Ecran
+            <span class="text-primary-500 font-bold">&#10003;</span> Proyector Multimedia y Ecran HD
           </li>
           <li class="flex items-center gap-3">
-            <span class="text-primary-500">✓</span> Sistema de Sonido Profesional
+            <span class="text-primary-500 font-bold">&#10003;</span> Sistema de Sonido Profesional
           </li>
           <li class="flex items-center gap-3">
-            <span class="text-primary-500">✓</span> Coffee Break y Catering
+            <span class="text-primary-500 font-bold">&#10003;</span> Coffee Break y Catering Personalizado
           </li>
           <li class="flex items-center gap-3">
-            <span class="text-primary-500">✓</span> Aire Acondicionado
+            <span class="text-primary-500 font-bold">&#10003;</span> Aire Acondicionado
           </li>
           <li class="flex items-center gap-3">
-            <span class="text-primary-500">✓</span> Mobiliario y Decoración
+            <span class="text-primary-500 font-bold">&#10003;</span> Mobiliario Modular y Decoración
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-primary-500 font-bold">&#10003;</span> WiFi de Alta Velocidad
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-primary-500 font-bold">&#10003;</span> Coordinador de Eventos Dedicado
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-primary-500 font-bold">&#10003;</span> Estacionamiento para Invitados
           </li>
         </ul>
-        <div class="mt-8">
-          <Button href="/contact">Cotizar Evento</Button>
-        </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2012&auto=format&fit=crop" class="rounded-sm w-full h-40 object-cover" alt="Conferencia" />
-        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop" class="rounded-sm w-full h-40 object-cover translate-y-4" alt="Boda" />
+        <img
+          src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2012&auto=format&fit=crop"
+          class="rounded-sm w-full h-48 object-cover shadow-lg"
+          alt="Conferencia corporativa en Hotel Costa del Inka"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop"
+          class="rounded-sm w-full h-48 object-cover translate-y-4 shadow-lg"
+          alt="Evento social en Hotel Costa del Inka"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop"
+          class="rounded-sm w-full h-48 object-cover shadow-lg"
+          alt="Salón de eventos preparado"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1540575467063-178a50e2fd60?q=80&w=2070&auto=format&fit=crop"
+          class="rounded-sm w-full h-48 object-cover translate-y-4 shadow-lg"
+          alt="Mesa de celebración decorada"
+        />
+      </div>
+    </div>
+  </Section>
+
+  <!-- Paquetes -->
+  <Section>
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="font-heading text-3xl text-heading font-bold mb-4">
+        Paquetes Corporativos
+      </h2>
+      <p class="text-muted leading-relaxed">
+        Ofrecemos tarifas especiales para empresas con eventos recurrentes. Consulte por nuestros paquetes.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-reveal="up" data-reveal-delay="200">
+      <div class="bg-surface-card border border-border rounded-sm p-8 text-center hover:shadow-lg transition-all">
+        <h3 class="font-heading text-xl text-heading font-bold mb-2">Medio Día</h3>
+        <p class="text-3xl font-heading text-primary-500 font-bold my-4">4 horas</p>
+        <ul class="text-muted text-sm space-y-2 mb-6">
+          <li>Salón equipado</li>
+          <li>1 coffee break</li>
+          <li>Agua y café ilimitado</li>
+          <li>WiFi incluido</li>
+        </ul>
+        <Button href="/contact" class="w-full justify-center">Cotizar</Button>
+      </div>
+      <div class="bg-surface-card border-2 border-primary-500 rounded-sm p-8 text-center relative hover:shadow-lg transition-all">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary-500 text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-sm">Popular</span>
+        <h3 class="font-heading text-xl text-heading font-bold mb-2">Día Completo</h3>
+        <p class="text-3xl font-heading text-primary-500 font-bold my-4">8 horas</p>
+        <ul class="text-muted text-sm space-y-2 mb-6">
+          <li>Salón equipado</li>
+          <li>2 coffee breaks</li>
+          <li>Almuerzo incluido</li>
+          <li>WiFi + soporte técnico</li>
+        </ul>
+        <Button href="/contact" class="w-full justify-center">Cotizar</Button>
+      </div>
+      <div class="bg-surface-card border border-border rounded-sm p-8 text-center hover:shadow-lg transition-all">
+        <h3 class="font-heading text-xl text-heading font-bold mb-2">Evento Social</h3>
+        <p class="text-3xl font-heading text-primary-500 font-bold my-4">6+ horas</p>
+        <ul class="text-muted text-sm space-y-2 mb-6">
+          <li>Decoración incluida</li>
+          <li>Catering completo</li>
+          <li>Música ambiental</li>
+          <li>Coordinador dedicado</li>
+        </ul>
+        <Button href="/contact" class="w-full justify-center">Cotizar</Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- CTA -->
+  <Section background="alt" padding="md">
+    <div class="text-center max-w-2xl mx-auto">
+      <h2 class="font-heading text-3xl text-heading font-bold mb-4">
+        ¿Listo para planificar su evento?
+      </h2>
+      <p class="text-muted leading-relaxed mb-8">
+        Contáctenos y nuestro equipo le ayudará a organizar cada detalle. Cotizaciones sin compromiso.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href="/contact">Cotizar Evento</Button>
+        <a
+          href="https://wa.me/51987893845?text=Hola%2C%20me%20interesa%20cotizar%20un%20evento%20en%20el%20hotel"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 border-2 border-border text-heading hover:border-primary-500 hover:text-primary-500 font-bold uppercase tracking-wider rounded-sm px-8 py-4 text-sm transition-all duration-300"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.616l4.584-1.452A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.592-.838-6.313-2.236l-.44-.37-3.053.968.998-3.126-.384-.458A9.96 9.96 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+          </svg>
+          Consultar por WhatsApp
+        </a>
       </div>
     </div>
   </Section>
