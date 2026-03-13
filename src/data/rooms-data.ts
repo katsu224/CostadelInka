@@ -38,9 +38,9 @@ export const rooms: Room[] = [
     description:
       "Nuestra habitación individual es ideal para viajeros que buscan comodidad y privacidad. Ofrece todo lo necesario para una estadía placentera, incluyendo servicio a la habitación, lavandería y equipo de música.",
     gallery: [
-      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop",
+      "/images/rooms/habitacion-individual.jpg",
+      "/images/rooms/habitacion-luminosa.jpg",
+      "/images/rooms/habitacion-superior.jpg",
     ],
     highlights: ["Habitación acogedora", "1 cama individual", "Baño privado", "Wi-Fi gratis", "Ventilador"],
     bathroomAmenities: ["Artículos de aseo gratis", "Bañera o ducha", "Toallas", "Papel higiénico"],
@@ -75,10 +75,10 @@ export const rooms: Room[] = [
     description:
       "Un espacio cómodo y acogedor con una cama doble grande, perfecto para parejas o viajeros que prefieren más amplitud. Disfrute de nuestro servicio a la habitación, lavandería y equipo de música para su total confort.",
     gallery: [
-      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=2074&auto=format&fit=crop",
+      "/images/rooms/habitacion-doble.jpg",
+      "/images/rooms/habitacion-vista.jpg",
+      "/images/rooms/habitacion-moderna.jpg",
+      "/images/rooms/habitacion-elegante.jpg",
     ],
     highlights: ["Habitación acogedora", "1 cama doble grande", "Baño privado", "Wi-Fi gratis", "Ventilador"],
     bathroomAmenities: ["Artículos de aseo gratis", "Bañera o ducha", "Toallas", "Papel higiénico"],
@@ -113,10 +113,10 @@ export const rooms: Room[] = [
     description:
       "Nuestra habitación doble superior ofrece mayor comodidad con dos camas dobles, ideal para familias pequeñas o amigos que viajan juntos. Brindamos servicio a la habitación, lavandería y un equipo de música para ambientar su estancia.",
     gallery: [
-      "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop",
+      "/images/rooms/habitacion-moderna.jpg",
+      "/images/rooms/habitacion-individual.jpg",
+      "/images/rooms/habitacion-vista.jpg",
+      "/images/rooms/habitacion-luminosa.jpg",
     ],
     highlights: ["Habitación amplia", "2 camas dobles", "Baño privado", "Wi-Fi gratis", "A/C (Consultar disp.)"],
     bathroomAmenities: ["Artículos de aseo gratis", "Bañera o ducha", "Toallas", "Papel higiénico"],
@@ -151,9 +151,9 @@ export const rooms: Room[] = [
     description:
       "Amplia habitación con una cama doble extragrande para el máximo descanso. Equipada con TV de pantalla plana, frigobar y baño privado. También disfrutará de servicio a la habitación, lavandería y equipo de música.",
     gallery: [
-      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop",
+      "/images/rooms/habitacion-elegante.jpg",
+      "/images/rooms/habitacion-doble.jpg",
+      "/images/rooms/habitacion-superior.jpg",
     ],
     highlights: [
       "Habitación espaciosa",
@@ -205,11 +205,11 @@ export const rooms: Room[] = [
     description:
       "Un espacio generoso con una cama doble extragrande, ideal para quienes buscan confort superior. Incluye artículos de aseo gratuitos, baño privado con ducha, frigobar, servicio a la habitación, lavandería y equipo de música.",
     gallery: [
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070&auto=format&fit=crop",
+      "/images/rooms/habitacion-superior.jpg",
+      "/images/rooms/habitacion-luminosa.jpg",
+      "/images/rooms/habitacion-vista.jpg",
+      "/images/rooms/habitacion-elegante.jpg",
+      "/images/rooms/habitacion-individual.jpg",
     ],
     highlights: [
       "Habitación muy espaciosa",
@@ -261,9 +261,9 @@ export const rooms: Room[] = [
     description:
       "Habitación triple ideal para familias o grupos de amigos, con vistas a la ciudad desde el piso superior. Ofrece 3 camas cómodas, servicio a la habitación, lavandería, equipo de música, TV de pantalla plana y baño privado con ducha.",
     gallery: [
-      "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop",
+      "/images/rooms/habitacion-moderna.jpg",
+      "/images/rooms/habitacion-individual.jpg",
+      "/images/rooms/habitacion-doble.jpg",
     ],
     highlights: [
       "Habitación amplia",
@@ -305,9 +305,9 @@ export const rooms: Room[] = [
     description:
       "Nuestra habitación más espaciosa, ideal para familias o grupos grandes. Con 4 camas cómodas, garantiza una estadía confortable para todos. Incluye servicio a la habitación, lavandería, equipo de música y TV de pantalla plana con canales por cable.",
     gallery: [
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=2074&auto=format&fit=crop",
+      "/images/rooms/habitacion-vista.jpg",
+      "/images/rooms/habitacion-moderna.jpg",
+      "/images/rooms/habitacion-elegante.jpg",
     ],
     highlights: [
       "Habitación familiar",
