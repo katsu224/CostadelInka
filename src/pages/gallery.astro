@@ -4,21 +4,54 @@ import PageHeader from "../components/PageHeader.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Section from "../components/ui/Section.astro";
 
-const breadcrumbItems = [
-  { name: "Inicio", url: "/" },
-  { name: "Galería" },
-];
+const breadcrumbItems = [{ name: "Inicio", url: "/" }, { name: "Galería" }];
 
 const galleryImages = [
-  { src: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop", alt: "Habitación doble Hotel Costa del Inka Nuevo Chimbote", category: "habitaciones" },
-  { src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop", alt: "Fachada Hotel Costa del Inka Nuevo Chimbote", category: "areas" },
-  { src: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1974&auto=format&fit=crop", alt: "Habitación triple con vista a la ciudad Chimbote", category: "habitaciones" },
-  { src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop", alt: "Restaurante Hotel Costa del Inka Nuevo Chimbote", category: "restaurante" },
-  { src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop", alt: "Sala de eventos Hotel Costa del Inka Chimbote", category: "areas" },
-  { src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop", alt: "Habitación superior Hotel Costa del Inka Nuevo Chimbote", category: "habitaciones" },
-  { src: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070&auto=format&fit=crop", alt: "Habitación individual Hotel Costa del Inka Chimbote", category: "habitaciones" },
-  { src: "https://images.unsplash.com/photo-1596178065849-0f852e18eb8b?q=80&w=2070&auto=format&fit=crop", alt: "Desayuno buffet Hotel Costa del Inka Chimbote", category: "restaurante" },
-  { src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop", alt: "Recepción Hotel Costa del Inka Nuevo Chimbote", category: "areas" },
+  {
+    src: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop",
+    alt: "Habitación doble Hotel Costa del Inka Nuevo Chimbote",
+    category: "habitaciones",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop",
+    alt: "Fachada Hotel Costa del Inka Nuevo Chimbote",
+    category: "areas",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1974&auto=format&fit=crop",
+    alt: "Habitación triple con vista a la ciudad Chimbote",
+    category: "habitaciones",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop",
+    alt: "Restaurante Hotel Costa del Inka Nuevo Chimbote",
+    category: "restaurante",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop",
+    alt: "Sala de eventos Hotel Costa del Inka Chimbote",
+    category: "areas",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop",
+    alt: "Habitación superior Hotel Costa del Inka Nuevo Chimbote",
+    category: "habitaciones",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070&auto=format&fit=crop",
+    alt: "Habitación individual Hotel Costa del Inka Chimbote",
+    category: "habitaciones",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop",
+    alt: "Desayuno buffet Hotel Costa del Inka Chimbote",
+    category: "restaurante",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop",
+    alt: "Recepción Hotel Costa del Inka Nuevo Chimbote",
+    category: "areas",
+  },
 ];
 ---
 
@@ -30,52 +63,83 @@ const galleryImages = [
   <PageHeader
     title="Conoce el Hotel Costa del Inka por dentro"
     subtitle="Un recorrido visual por nuestras instalaciones"
-    imageSrc="https://images.unsplash.com/photo-1542314831-c6a4d14008ab?auto=format&fit=crop&w=1920&q=80"
+    imageSrc="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop&w=1920&q=80"
   />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Section>
     <!-- Category Filter Tabs -->
-    <div class="flex flex-wrap justify-center gap-3 mb-12" role="tablist" aria-label="Filtrar fotos por categoría" data-reveal="up">
-      <button class="gallery-filter-btn active px-5 py-2 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-primary-500 bg-primary-500 text-white transition-all duration-300" data-filter="all" role="tab" aria-selected="true">
+    <div
+      class="flex flex-wrap justify-center gap-3 mb-12"
+      role="tablist"
+      aria-label="Filtrar fotos por categoría"
+      data-reveal="up"
+    >
+      <button
+        class="gallery-filter-btn active px-5 py-2 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-primary-500 bg-primary-500 text-white transition-all duration-300"
+        data-filter="all"
+        role="tab"
+        aria-selected="true"
+      >
         Todas
       </button>
-      <button class="gallery-filter-btn px-5 py-2 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-500 hover:text-primary-500 transition-all duration-300" data-filter="habitaciones" role="tab" aria-selected="false">
+      <button
+        class="gallery-filter-btn px-5 py-2 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-500 hover:text-primary-500 transition-all duration-300"
+        data-filter="habitaciones"
+        role="tab"
+        aria-selected="false"
+      >
         Habitaciones
       </button>
-      <button class="gallery-filter-btn px-5 py-2 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-500 hover:text-primary-500 transition-all duration-300" data-filter="restaurante" role="tab" aria-selected="false">
+      <button
+        class="gallery-filter-btn px-5 py-2 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-500 hover:text-primary-500 transition-all duration-300"
+        data-filter="restaurante"
+        role="tab"
+        aria-selected="false"
+      >
         Restaurante
       </button>
-      <button class="gallery-filter-btn px-5 py-2 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-500 hover:text-primary-500 transition-all duration-300" data-filter="areas" role="tab" aria-selected="false">
+      <button
+        class="gallery-filter-btn px-5 py-2 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-500 hover:text-primary-500 transition-all duration-300"
+        data-filter="areas"
+        role="tab"
+        aria-selected="false"
+      >
         Áreas Comunes
       </button>
     </div>
 
     <!-- Gallery Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid" data-reveal="up">
-      {galleryImages.map((img, index) => (
-        <button
-          class="gallery-item relative group overflow-hidden rounded-sm cursor-pointer aspect-square shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-          data-category={img.category}
-          data-index={index}
-          data-src={img.src}
-          aria-label={`Ver foto: ${img.alt}`}
-          type="button"
-        >
-          <img
-            src={img.src}
-            alt={img.alt}
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
-          />
-          <div class="absolute inset-0 bg-dark-900/50 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <span class="text-white font-heading tracking-widest uppercase border border-white px-4 py-2 text-sm">
-              Ver
-            </span>
-          </div>
-        </button>
-      ))}
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      id="gallery-grid"
+      data-reveal="up"
+    >
+      {
+        galleryImages.map((img, index) => (
+          <button
+            class="gallery-item relative group overflow-hidden rounded-sm cursor-pointer aspect-square shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+            data-category={img.category}
+            data-index={index}
+            data-src={img.src}
+            aria-label={`Ver foto: ${img.alt}`}
+            type="button"
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-dark-900/50 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span class="text-white font-heading tracking-widest uppercase border border-white px-4 py-2 text-sm">
+                Ver
+              </span>
+            </div>
+          </button>
+        ))
+      }
     </div>
   </Section>
 
@@ -90,62 +154,82 @@ const galleryImages = [
     <button
       id="lb-close"
       class="absolute top-6 right-6 text-white/80 hover:text-white text-4xl z-10 cursor-pointer transition-colors w-12 h-12 flex items-center justify-center"
-      aria-label="Cerrar visor"
-    >&times;</button>
+      aria-label="Cerrar visor">&times;</button
+    >
     <button
       id="lb-prev"
       class="absolute left-4 md:left-8 text-white/70 hover:text-white text-5xl z-10 cursor-pointer transition-colors w-12 h-12 flex items-center justify-center"
-      aria-label="Foto anterior"
-    >&#8249;</button>
+      aria-label="Foto anterior">&#8249;</button
+    >
     <button
       id="lb-next"
       class="absolute right-4 md:right-8 text-white/70 hover:text-white text-5xl z-10 cursor-pointer transition-colors w-12 h-12 flex items-center justify-center"
-      aria-label="Foto siguiente"
-    >&#8250;</button>
+      aria-label="Foto siguiente">&#8250;</button
+    >
     <img
       id="lb-img"
       class="max-w-[90vw] max-h-[85vh] object-contain rounded-sm shadow-2xl"
       alt=""
     />
-    <div id="lb-counter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm font-medium tracking-wide"></div>
-    <div id="lb-caption" class="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/90 text-sm font-medium text-center max-w-md"></div>
+    <div
+      id="lb-counter"
+      class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm font-medium tracking-wide"
+    >
+    </div>
+    <div
+      id="lb-caption"
+      class="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/90 text-sm font-medium text-center max-w-md"
+    >
+    </div>
   </div>
 </MainLayout>
 
 <script is:inline>
   // === GALLERY FILTER ===
-  document.querySelectorAll('.gallery-filter-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.gallery-filter-btn').forEach(function(b) {
-        b.classList.remove('active', 'bg-primary-500', 'text-white', 'border-primary-500');
-        b.classList.add('border-border', 'text-muted');
-        b.setAttribute('aria-selected', 'false');
+  document.querySelectorAll(".gallery-filter-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll(".gallery-filter-btn").forEach(function (b) {
+        b.classList.remove(
+          "active",
+          "bg-primary-500",
+          "text-white",
+          "border-primary-500",
+        );
+        b.classList.add("border-border", "text-muted");
+        b.setAttribute("aria-selected", "false");
       });
-      btn.classList.add('active', 'bg-primary-500', 'text-white', 'border-primary-500');
-      btn.classList.remove('border-border', 'text-muted');
-      btn.setAttribute('aria-selected', 'true');
+      btn.classList.add(
+        "active",
+        "bg-primary-500",
+        "text-white",
+        "border-primary-500",
+      );
+      btn.classList.remove("border-border", "text-muted");
+      btn.setAttribute("aria-selected", "true");
 
       var filter = btn.dataset.filter;
-      document.querySelectorAll('.gallery-item').forEach(function(item) {
-        if (filter === 'all' || item.dataset.category === filter) {
-          item.style.display = '';
+      document.querySelectorAll(".gallery-item").forEach(function (item) {
+        if (filter === "all" || item.dataset.category === filter) {
+          item.style.display = "";
         } else {
-          item.style.display = 'none';
+          item.style.display = "none";
         }
       });
     });
   });
 
   // === LIGHTBOX ===
-  var lightbox = document.getElementById('gallery-lightbox');
-  var lbImg = document.getElementById('lb-img');
-  var lbCounter = document.getElementById('lb-counter');
-  var lbCaption = document.getElementById('lb-caption');
-  var allItems = Array.from(document.querySelectorAll('.gallery-item'));
+  var lightbox = document.getElementById("gallery-lightbox");
+  var lbImg = document.getElementById("lb-img");
+  var lbCounter = document.getElementById("lb-counter");
+  var lbCaption = document.getElementById("lb-caption");
+  var allItems = Array.from(document.querySelectorAll(".gallery-item"));
   var currentIdx = 0;
 
   function getVisibleItems() {
-    return allItems.filter(function(item) { return item.style.display !== 'none'; });
+    return allItems.filter(function (item) {
+      return item.style.display !== "none";
+    });
   }
 
   function openLightbox(idx) {
@@ -154,18 +238,18 @@ const galleryImages = [
     var item = visible[idx];
     if (!item) return;
     lbImg.src = item.dataset.src;
-    lbImg.alt = item.querySelector('img').alt;
-    lbCaption.textContent = item.querySelector('img').alt;
-    lbCounter.textContent = (idx + 1) + ' / ' + visible.length;
-    lightbox.classList.remove('hidden');
-    lightbox.classList.add('flex');
-    document.body.style.overflow = 'hidden';
+    lbImg.alt = item.querySelector("img").alt;
+    lbCaption.textContent = item.querySelector("img").alt;
+    lbCounter.textContent = idx + 1 + " / " + visible.length;
+    lightbox.classList.remove("hidden");
+    lightbox.classList.add("flex");
+    document.body.style.overflow = "hidden";
   }
 
   function closeLightbox() {
-    lightbox.classList.add('hidden');
-    lightbox.classList.remove('flex');
-    document.body.style.overflow = '';
+    lightbox.classList.add("hidden");
+    lightbox.classList.remove("flex");
+    document.body.style.overflow = "";
   }
 
   function navLightbox(dir) {
@@ -173,27 +257,33 @@ const galleryImages = [
     currentIdx = (currentIdx + dir + visible.length) % visible.length;
     var item = visible[currentIdx];
     lbImg.src = item.dataset.src;
-    lbImg.alt = item.querySelector('img').alt;
-    lbCaption.textContent = item.querySelector('img').alt;
-    lbCounter.textContent = (currentIdx + 1) + ' / ' + visible.length;
+    lbImg.alt = item.querySelector("img").alt;
+    lbCaption.textContent = item.querySelector("img").alt;
+    lbCounter.textContent = currentIdx + 1 + " / " + visible.length;
   }
 
-  allItems.forEach(function(item) {
-    item.addEventListener('click', function() {
+  allItems.forEach(function (item) {
+    item.addEventListener("click", function () {
       var visible = getVisibleItems();
       var idx = visible.indexOf(item);
       openLightbox(idx);
     });
   });
 
-  document.getElementById('lb-close').addEventListener('click', closeLightbox);
-  document.getElementById('lb-prev').addEventListener('click', function() { navLightbox(-1); });
-  document.getElementById('lb-next').addEventListener('click', function() { navLightbox(1); });
-  lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', function(e) {
-    if (lightbox.classList.contains('hidden')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowRight') navLightbox(1);
-    if (e.key === 'ArrowLeft') navLightbox(-1);
+  document.getElementById("lb-close").addEventListener("click", closeLightbox);
+  document.getElementById("lb-prev").addEventListener("click", function () {
+    navLightbox(-1);
+  });
+  document.getElementById("lb-next").addEventListener("click", function () {
+    navLightbox(1);
+  });
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (lightbox.classList.contains("hidden")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") navLightbox(1);
+    if (e.key === "ArrowLeft") navLightbox(-1);
   });
 </script>
