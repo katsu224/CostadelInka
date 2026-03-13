@@ -7,7 +7,8 @@
       "Bash(find /c/Users/aguil/OneDrive/Escritorio/CreadorDeLandingPageAstro/segundaPagina -maxdepth 1 -name \"*.json\" | xargs ls 2>/dev/null)",
       "Bash(cd \"C:\\\\Users\\\\aguil\\\\OneDrive\\\\Escritorio\\\\CreadorDeLandingPageAstro\\\\segundaPagina\" && npx astro build 2>&1 | tail -30)",
       "Bash(cd \"C:\\\\Users\\\\aguil\\\\OneDrive\\\\Escritorio\\\\CreadorDeLandingPageAstro\\\\segundaPagina\" && npx astro build 2>&1)",
-      "Bash(cd \"C:\\\\Users\\\\aguil\\\\OneDrive\\\\Escritorio\\\\CreadorDeLandingPageAstro\\\\segundaPagina\" && npx astro --version 2>&1)"
+      "Bash(cd \"C:\\\\Users\\\\aguil\\\\OneDrive\\\\Escritorio\\\\CreadorDeLandingPageAstro\\\\segundaPagina\" && npx astro --version 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\aguil\\\\OneDrive\\\\Escritorio\\\\CreadorDeLandingPageAstro\\\\segundaPagina\" && npx astro build 2>&1 | tail -5)"
     ]
   }
 }

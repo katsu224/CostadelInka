@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://costadelinka.com/sitemap-index.xml
+Sitemap: https://www.costadelinkahotel.com/sitemap.xml
