@@ -16,8 +16,8 @@ const showEffect = isChristmas || isValentine;
   <div class="seasonal-effects" aria-hidden="true">
     {isChristmas && (
       <div class="snowflakes">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <span class="snowflake" style={`--i: ${i}; --x: ${Math.random() * 100}; --delay: ${Math.random() * 10}; --duration: ${5 + Math.random() * 10}; --size: ${0.6 + Math.random() * 0.8}`}>
+        {Array.from({ length: 10 }).map((_, i) => (
+          <span class="snowflake" style={`--i: ${i}; --x: ${Math.random() * 100}; --delay: ${Math.random() * 10}; --duration: ${8 + Math.random() * 8}; --size: ${0.8 + Math.random() * 0.5}`}>
             &#10052;
           </span>
         ))}
@@ -25,8 +25,8 @@ const showEffect = isChristmas || isValentine;
     )}
     {isValentine && (
       <div class="hearts">
-        {Array.from({ length: 15 }).map((_, i) => (
-          <span class="heart" style={`--i: ${i}; --x: ${Math.random() * 100}; --delay: ${Math.random() * 10}; --duration: ${6 + Math.random() * 10}; --size: ${0.5 + Math.random() * 0.7}`}>
+        {Array.from({ length: 8 }).map((_, i) => (
+          <span class="heart" style={`--i: ${i}; --x: ${Math.random() * 100}; --delay: ${Math.random() * 10}; --duration: ${8 + Math.random() * 8}; --size: ${0.7 + Math.random() * 0.5}`}>
             &#9829;
           </span>
         ))}

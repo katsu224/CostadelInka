@@ -1,6 +1,4 @@
 ---
-import "@fontsource/playfair-display/latin.css";
-import "@fontsource/inter/latin.css";
 import "../styles/global.css";
 
 import SEOHead from "../components/SEOHead.astro";
@@ -48,8 +46,7 @@ const themeClass = activeTheme !== "default" ? `theme-${activeTheme}` : "";
     <meta name="generator" content={Astro.generator} />
 
     <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google.com https://maps.googleapis.com https://maps.gstatic.com; frame-src https://www.google.com https://www.booking.com; connect-src 'self' https://www.google-analytics.com; font-src 'self';" />
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google.com https://maps.googleapis.com https://maps.gstatic.com; frame-src https://www.google.com https://www.booking.com; connect-src 'self' https://www.google-analytics.com; font-src 'self' data:;" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
@@ -120,15 +117,17 @@ const themeClass = activeTheme !== "default" ? `theme-${activeTheme}` : "";
           entries.forEach(function(entry) {
             if (entry.isIntersecting) {
               var el = entry.target;
-              var delay = el.getAttribute('data-reveal-delay') || '0';
-              el.style.transitionDelay = delay + 'ms';
+              var delay = el.getAttribute('data-reveal-delay');
+              if (delay) el.style.transitionDelay = delay + 'ms';
               el.classList.add('revealed');
               observer.unobserve(el);
             }
           });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
-        elements.forEach(function(el) { observer.observe(el); });
+        for (var i = 0; i < elements.length; i++) {
+          observer.observe(elements[i]);
+        }
       }
 
       // Run on initial load
