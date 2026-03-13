@@ -28,7 +28,7 @@ const menuItems = [
     </a>
 
     <!-- Desktop Menu -->
-    <nav class="hidden md:flex items-center gap-8">
+    <nav class="hidden lg:flex items-center gap-8">
       {
         menuItems.map((item) => (
           <a
@@ -70,7 +70,7 @@ const menuItems = [
     </nav>
 
     <!-- Mobile Menu Button -->
-    <div class="md:hidden flex items-center gap-3">
+    <div class="lg:hidden flex items-center gap-3">
       <button
         id="theme-toggle-mobile-btn"
         class="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 border border-white/20 hover:border-primary-500/50 hover:bg-white/20 transition-all"
@@ -109,7 +109,7 @@ const menuItems = [
 <!-- Mobile Menu Overlay -->
 <div
   id="mobile-menu"
-  class="fixed inset-0 bg-dark-900 z-50 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8"
+  class="fixed inset-0 bg-dark-900 z-50 transform translate-x-full transition-transform duration-300 lg:hidden flex flex-col justify-center items-center gap-8"
 >
   <button
     id="menu-close"
