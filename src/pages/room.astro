@@ -44,7 +44,7 @@ const breadcrumbs = [{ name: "Inicio", url: "/" }, { name: "Habitaciones" }];
       data-reveal="up"
     >
       <button
-        class="room-filter-btn active px-6 py-2.5 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-primary-500 bg-primary-500 text-white transition-all duration-300"
+        class="room-filter-btn active px-6 py-2.5 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-primary-700 bg-primary-700 text-white transition-all duration-300"
         data-filter="all"
         role="tab"
         aria-selected="true"
@@ -52,7 +52,7 @@ const breadcrumbs = [{ name: "Inicio", url: "/" }, { name: "Habitaciones" }];
         Todas
       </button>
       <button
-        class="room-filter-btn px-6 py-2.5 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-500 hover:text-primary-500 transition-all duration-300"
+        class="room-filter-btn px-6 py-2.5 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-700 hover:text-primary-700 transition-all duration-300"
         data-filter="solo,pareja"
         role="tab"
         aria-selected="false"
@@ -60,7 +60,7 @@ const breadcrumbs = [{ name: "Inicio", url: "/" }, { name: "Habitaciones" }];
         1-2 Personas
       </button>
       <button
-        class="room-filter-btn px-6 py-2.5 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-500 hover:text-primary-500 transition-all duration-300"
+        class="room-filter-btn px-6 py-2.5 rounded-sm text-sm font-bold uppercase tracking-wider border-2 border-border text-muted hover:border-primary-700 hover:text-primary-700 transition-all duration-300"
         data-filter="familiar"
         role="tab"
         aria-selected="false"
@@ -96,7 +96,7 @@ const breadcrumbs = [{ name: "Inicio", url: "/" }, { name: "Habitaciones" }];
             <div
               class={`flex flex-col justify-center ${index % 2 === 1 ? "lg:order-1" : "lg:order-2"}`}
             >
-              <span class="text-primary-500 font-bold tracking-widest uppercase text-sm mb-2 block">
+              <span class="text-primary-700 font-bold tracking-widest uppercase text-sm mb-2 block">
                 {room.size} · {room.beds}
               </span>
               <h2 class="font-heading text-3xl md:text-4xl text-heading font-bold mb-4">
@@ -230,18 +230,18 @@ const breadcrumbs = [{ name: "Inicio", url: "/" }, { name: "Habitaciones" }];
       document.querySelectorAll(".room-filter-btn").forEach(function (b) {
         b.classList.remove(
           "active",
-          "bg-primary-500",
+          "bg-primary-700",
           "text-white",
-          "border-primary-500",
+          "border-primary-700",
         );
         b.classList.add("border-border", "text-muted");
         b.setAttribute("aria-selected", "false");
       });
       btn.classList.add(
         "active",
-        "bg-primary-500",
+        "bg-primary-700",
         "text-white",
-        "border-primary-500",
+        "border-primary-700",
       );
       btn.classList.remove("border-border", "text-muted");
       btn.setAttribute("aria-selected", "true");
