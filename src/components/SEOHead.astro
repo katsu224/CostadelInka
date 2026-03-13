@@ -28,7 +28,7 @@ const siteName = 'Hotel Costa del Inka';
 const siteURL = Astro.site?.toString() || 'https://www.costadelinkahotel.com';
 const resolvedImage = image
   ? new URL(image, siteURL).toString()
-  : new URL('/images/hotel/og-default.jpg', siteURL).toString();
+  : new URL('/images/hotel/og-default.webp', siteURL).toString();
 const resolvedCanonical = new URL(canonicalURL, siteURL).toString();
 
 const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;

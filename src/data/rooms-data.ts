@@ -38,9 +38,9 @@ export const rooms: Room[] = [
     description:
       "Nuestra habitación individual es ideal para viajeros que buscan comodidad y privacidad. Ofrece todo lo necesario para una estadía placentera, incluyendo servicio a la habitación, lavandería y equipo de música.",
     gallery: [
-      "/images/rooms/habitacion-individual.jpg",
-      "/images/rooms/habitacion-luminosa.jpg",
-      "/images/rooms/habitacion-superior.jpg",
+      "/images/rooms/habitacion-individual.webp",
+      "/images/rooms/habitacion-luminosa.webp",
+      "/images/rooms/habitacion-superior.webp",
     ],
     highlights: ["Habitación acogedora", "1 cama individual", "Baño privado", "Wi-Fi gratis", "Ventilador"],
     bathroomAmenities: ["Artículos de aseo gratis", "Bañera o ducha", "Toallas", "Papel higiénico"],
@@ -75,10 +75,10 @@ export const rooms: Room[] = [
     description:
       "Un espacio cómodo y acogedor con una cama doble grande, perfecto para parejas o viajeros que prefieren más amplitud. Disfrute de nuestro servicio a la habitación, lavandería y equipo de música para su total confort.",
     gallery: [
-      "/images/rooms/habitacion-doble.jpg",
-      "/images/rooms/habitacion-vista.jpg",
-      "/images/rooms/habitacion-moderna.jpg",
-      "/images/rooms/habitacion-elegante.jpg",
+      "/images/rooms/habitacion-doble.webp",
+      "/images/rooms/habitacion-vista.webp",
+      "/images/rooms/habitacion-moderna.webp",
+      "/images/rooms/habitacion-elegante.webp",
     ],
     highlights: ["Habitación acogedora", "1 cama doble grande", "Baño privado", "Wi-Fi gratis", "Ventilador"],
     bathroomAmenities: ["Artículos de aseo gratis", "Bañera o ducha", "Toallas", "Papel higiénico"],
@@ -113,10 +113,10 @@ export const rooms: Room[] = [
     description:
       "Nuestra habitación doble superior ofrece mayor comodidad con dos camas dobles, ideal para familias pequeñas o amigos que viajan juntos. Brindamos servicio a la habitación, lavandería y un equipo de música para ambientar su estancia.",
     gallery: [
-      "/images/rooms/habitacion-moderna.jpg",
-      "/images/rooms/habitacion-individual.jpg",
-      "/images/rooms/habitacion-vista.jpg",
-      "/images/rooms/habitacion-luminosa.jpg",
+      "/images/rooms/habitacion-moderna.webp",
+      "/images/rooms/habitacion-individual.webp",
+      "/images/rooms/habitacion-vista.webp",
+      "/images/rooms/habitacion-luminosa.webp",
     ],
     highlights: ["Habitación amplia", "2 camas dobles", "Baño privado", "Wi-Fi gratis", "A/C (Consultar disp.)"],
     bathroomAmenities: ["Artículos de aseo gratis", "Bañera o ducha", "Toallas", "Papel higiénico"],
@@ -151,9 +151,9 @@ export const rooms: Room[] = [
     description:
       "Amplia habitación con una cama doble extragrande para el máximo descanso. Equipada con TV de pantalla plana, frigobar y baño privado. También disfrutará de servicio a la habitación, lavandería y equipo de música.",
     gallery: [
-      "/images/rooms/habitacion-elegante.jpg",
-      "/images/rooms/habitacion-doble.jpg",
-      "/images/rooms/habitacion-superior.jpg",
+      "/images/rooms/habitacion-elegante.webp",
+      "/images/rooms/habitacion-doble.webp",
+      "/images/rooms/habitacion-superior.webp",
     ],
     highlights: [
       "Habitación espaciosa",
@@ -205,11 +205,11 @@ export const rooms: Room[] = [
     description:
       "Un espacio generoso con una cama doble extragrande, ideal para quienes buscan confort superior. Incluye artículos de aseo gratuitos, baño privado con ducha, frigobar, servicio a la habitación, lavandería y equipo de música.",
     gallery: [
-      "/images/rooms/habitacion-superior.jpg",
-      "/images/rooms/habitacion-luminosa.jpg",
-      "/images/rooms/habitacion-vista.jpg",
-      "/images/rooms/habitacion-elegante.jpg",
-      "/images/rooms/habitacion-individual.jpg",
+      "/images/rooms/habitacion-superior.webp",
+      "/images/rooms/habitacion-luminosa.webp",
+      "/images/rooms/habitacion-vista.webp",
+      "/images/rooms/habitacion-elegante.webp",
+      "/images/rooms/habitacion-individual.webp",
     ],
     highlights: [
       "Habitación muy espaciosa",
@@ -261,9 +261,9 @@ export const rooms: Room[] = [
     description:
       "Habitación triple ideal para familias o grupos de amigos, con vistas a la ciudad desde el piso superior. Ofrece 3 camas cómodas, servicio a la habitación, lavandería, equipo de música, TV de pantalla plana y baño privado con ducha.",
     gallery: [
-      "/images/rooms/habitacion-moderna.jpg",
-      "/images/rooms/habitacion-individual.jpg",
-      "/images/rooms/habitacion-doble.jpg",
+      "/images/rooms/habitacion-moderna.webp",
+      "/images/rooms/habitacion-individual.webp",
+      "/images/rooms/habitacion-doble.webp",
     ],
     highlights: [
       "Habitación amplia",
@@ -305,9 +305,9 @@ export const rooms: Room[] = [
     description:
       "Nuestra habitación más espaciosa, ideal para familias o grupos grandes. Con 4 camas cómodas, garantiza una estadía confortable para todos. Incluye servicio a la habitación, lavandería, equipo de música y TV de pantalla plana con canales por cable.",
     gallery: [
-      "/images/rooms/habitacion-vista.jpg",
-      "/images/rooms/habitacion-moderna.jpg",
-      "/images/rooms/habitacion-elegante.jpg",
+      "/images/rooms/habitacion-vista.webp",
+      "/images/rooms/habitacion-moderna.webp",
+      "/images/rooms/habitacion-elegante.webp",
     ],
     highlights: [
       "Habitación familiar",
