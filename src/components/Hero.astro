@@ -1,5 +1,6 @@
 ---
 import type { Theme } from '../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
 
 interface Props {
   theme?: Theme;
@@ -13,16 +14,19 @@ const experiences = [
   {
     title: "Habitaciones",
     image: "/images/rooms/habitacion-doble.webp",
+    thumb: "/images/thumbs/habitacion-doble-thumb.webp",
     href: "/room",
   },
   {
     title: "Restaurante",
     image: "/images/services/restaurante-plato.webp",
+    thumb: "/images/thumbs/restaurante-plato-thumb.webp",
     href: "/restaurant",
   },
   {
     title: "Terraza",
     image: "/images/services/terraza-exterior.webp",
+    thumb: "/images/thumbs/terraza-exterior-thumb.webp",
     href: "/terraza",
   },
 ];
@@ -31,7 +35,7 @@ const experiences = [
 <section class="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-dark-900">
   <!-- Image Background -->
   <div class="absolute inset-0 z-0">
-    <img src={heroBg.src} alt="Hero Image" class="w-full h-full object-cover" />
+    <Image src={heroBg} alt="Hotel Costa del Inka Nuevo Chimbote" widths={[480, 768, 1200, 1920]} sizes="100vw" class="w-full h-full object-cover" quality={80} loading="eager" fetchpriority="high" />
     <div class="absolute inset-0 bg-black/60"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40"></div>
   </div>
@@ -76,12 +80,17 @@ const experiences = [
           style="border-radius: 999px;"
           aria-label={`Explorar ${exp.title}`}
         >
-          <img
-            src={exp.image}
-            alt=""
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-115"
-            loading="lazy"
-          />
+          <picture>
+            <source media="(max-width: 767px)" srcset={exp.thumb} />
+            <img
+              src={exp.image}
+              alt=""
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-115"
+              loading="lazy"
+              width="190"
+              height="190"
+            />
+          </picture>
           <!-- Overlay -->
           <div class="absolute inset-0 bg-black/35 group-hover:bg-black/15 transition-all duration-500"></div>
 

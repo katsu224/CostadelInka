@@ -314,11 +314,17 @@ const faqSchema = {
             <div class="absolute bottom-0 w-[1px] h-20 bg-primary-500/60"></div>
           </div>
 
-          <img
-            src="/images/rooms/habitacion-superior.webp"
-            alt="Suite de lujo con vista al mar en Hotel Costa del Inka"
-            class="w-full aspect-[4/3] object-cover shadow-2xl"
-          />
+          <picture>
+            <source media="(max-width: 767px)" srcset="/images/thumbs/habitacion-superior-card.webp" />
+            <img
+              src="/images/rooms/habitacion-superior.webp"
+              alt="Suite de lujo con vista al mar en Hotel Costa del Inka"
+              class="w-full aspect-[4/3] object-cover shadow-2xl"
+              loading="lazy"
+              width="600"
+              height="450"
+            />
+          </picture>
 
           <!-- 40+ badge -->
           <div
@@ -378,12 +384,17 @@ const faqSchema = {
               class="group block bg-surface-card border border-border rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:border-border-hover transition-all duration-300 hover:-translate-y-1"
             >
               <div class="relative h-[220px] overflow-hidden">
-                <img
-                  src={room.gallery[0]}
-                  alt={`${room.title} Hotel Costa del Inka Nuevo Chimbote`}
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
+                <picture>
+                  <source media="(max-width: 767px)" srcset={`/images/thumbs/${room.gallery[0].split('/').pop()?.replace('.webp', '-card.webp')}`} />
+                  <img
+                    src={room.gallery[0]}
+                    alt={`${room.title} Hotel Costa del Inka Nuevo Chimbote`}
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                    width="400"
+                    height="220"
+                  />
+                </picture>
                 <div class="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-sm text-xs font-bold tracking-wide">
                   Desde S/ {room.priceFrom}
                 </div>

@@ -3,12 +3,14 @@ interface Props {
   title: string;
   subtitle?: string;
   imageSrc?: string;
+  imageSrcMobile?: string;
 }
 
 const {
   title,
   subtitle,
   imageSrc = "/images/rooms/habitacion-elegante.webp",
+  imageSrcMobile,
 } = Astro.props;
 ---
 
@@ -16,7 +18,14 @@ const {
   class="relative pt-32 pb-20 md:pt-48 md:pb-32 flex flex-col items-center justify-center overflow-hidden bg-dark-900"
 >
   <div class="absolute inset-0 z-0">
-    <img src={imageSrc} alt={title} class="w-full h-full object-cover" fetchpriority="high" />
+    {imageSrcMobile ? (
+      <picture>
+        <source media="(max-width: 767px)" srcset={imageSrcMobile} />
+        <img src={imageSrc} alt={title} class="w-full h-full object-cover" fetchpriority="high" width="1200" height="600" />
+      </picture>
+    ) : (
+      <img src={imageSrc} alt={title} class="w-full h-full object-cover" fetchpriority="high" width="1200" height="600" />
+    )}
     <div class="absolute inset-0 bg-black/50"></div>
     <div
       class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"

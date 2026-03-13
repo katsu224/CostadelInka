@@ -33,6 +33,7 @@ const breadcrumbs = [
     title="Más de 10 años siendo el hogar de los viajeros en Chimbote"
     subtitle="Tradición de hospitalidad y compromiso con la excelencia"
     imageSrc="/images/hotel/exterior-hotel.webp"
+    imageSrcMobile="/images/thumbs/exterior-header-sm.webp"
   />
   <Breadcrumbs items={breadcrumbs} />
 
@@ -157,11 +158,17 @@ const breadcrumbs = [
         <div
           class="relative rounded-sm overflow-hidden border border-black/5 dark:border-white/10 shadow-2xl"
         >
-          <img
-            src="/images/hotel/lobby-hotel.webp"
-            alt="Hotel Lobby"
-            class="w-full h-[350px] md:h-[500px] object-cover hover:scale-105 transition-transform duration-700"
-          />
+          <picture>
+            <source media="(max-width: 767px)" srcset="/images/thumbs/lobby-header-sm.webp" />
+            <img
+              src="/images/hotel/lobby-hotel.webp"
+              alt="Hotel Lobby"
+              class="w-full h-[350px] md:h-[500px] object-cover hover:scale-105 transition-transform duration-700"
+              loading="lazy"
+              width="800"
+              height="500"
+            />
+          </picture>
         </div>
         <!-- Marco Decorativo Dorado Superior -->
         <div
